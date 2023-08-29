@@ -10,7 +10,7 @@ meta:
   content: 当前支持版本0.9.1
 ---
 
-更新状态：[![Build and Deploy](https://github.com/xuanxuan1231/OpenCore-Install-Guide/actions/workflows/build_test_deploy.yml/badge.svg)](https://github.com/xuanxuan1231/OpenCore-Install-Guide/actions/workflows/build_test_deploy.yml)
+更新状态：[![Build and Deploy](https://github.com/xuanxuan1231/OpenCore-Install-Guide/actions/workflows/vuepress-deploy.yml/badge.svg)](https://github.com/xuanxuan1231/OpenCore-Install-Guide/actions/workflows/vuepress-deploy.yml)[![pages-build-deployment](https://github.com/xuanxuan1231/OpenCore-Install-Guide/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/xuanxuan1231/OpenCore-Install-Guide/actions/workflows/pages/pages-build-deployment)
 # 什么是OpenCore？本指南针对谁？
 
 OpenCore就是我们所说的“引导加载程序”——它是一个复杂的软件，我们用它来为macOS准备我们的系统——特别是通过为macOS注入新的数据，比如SMBIOS、ACPI表和kext。这个工具与Clover等其他工具的不同之处在于，它在设计时考虑了安全性和质量，允许我们使用许多在真实Mac上发现的安全功能，例如[系统完整性保护](https://support.apple.com/zh-cn/HT204899)和[文件保险箱](https://support.apple.com/zh-cn/HT204837)。更深入的了解可以在这里找到:[为什么OpenCore胜过Clover和其他的](why-oc.md)
