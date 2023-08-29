@@ -21,7 +21,7 @@
    * 16GB USB（使用macOS创建USB时）
    * 4GB USB（使用Windows或Linux创建USB时）
 6. <span style="color:red">_**[重要]**_</span> **以太网连接** (没有WiFi加密狗，以太网USB适配器可能工作取决于macOS支持)，并且你必须知道你的网卡的型号
-   * 您必须有一个物理以太网端口，或兼容的macOS以太网加密狗/适配器。如果你有[兼容的WiFi卡](https://dortania.github.io/Wireless-Buyers-Guide/)你也可以使用它
+   * 您必须有一个物理以太网端口，或兼容的macOS以太网加密狗/适配器。如果你有[兼容的WiFi卡](https://xuanxuan1231.github.io/Wireless-Buyers-Guide/)你也可以使用它
      * 请注意，大多数WiFi卡不支持macOS
    * 对于不能使用以太网但有Android手机的人，你可以将Android手机连接到WiFi，然后使用USB连接。我们要用到[HoRNDIS](https://joshuawise.com/horndis#available_versions)。
 7. <span style="color:red">_**[重要]**_</span> **正确安装操作系统:**
