@@ -3,7 +3,7 @@ const {
 } = require('../package')
 
 module.exports = {
-    title: 'OpenCore Install Guide',
+    title: 'OpenCore安装指南',
     head: [
         ['meta', {
             name: 'theme-color',
@@ -55,45 +55,45 @@ module.exports = {
 
     themeConfig: {
         lastUpdated: true,
-        repo: 'https://github.com/dortania/OpenCore-Install-Guide',
+        repo: 'https://github.com/xuanxuan1231/OpenCore-Install-Guide',
         editLinks: true,
-        editLinkText: 'Help us improve this page!',
+        editLinkText: '帮助我们改进此页！',
         logo: '/homepage.png',
         nav: [{
-            text: 'Dortania Guides',
+            text: 'Dortania指南翻译',
             items: [{
-                text: 'Home Site',
-                link: 'https://dortania.github.io/'
+                text: '主页',
+                link: 'https://xuanxuan1231.github.io/'
             },
             {
-                text: 'Getting Started With ACPI',
-                link: 'https://dortania.github.io/Getting-Started-With-ACPI/'
+                text: 'ACPI入门',
+                link: 'https://xuanxuan1231.github.io/Getting-Started-With-ACPI/'
             },
             {
-                text: 'OpenCore Post-Install',
-                link: 'https://dortania.github.io/OpenCore-Post-Install/'
+                text: 'OpenCore安装后',
+                link: 'https://xuanxuan1231.github.io/OpenCore-Post-Install/'
             },
             {
-                text: 'OpenCore Multiboot',
-                link: 'https://dortania.github.io/OpenCore-Multiboot/'
+                text: 'OpenCore多重引导',
+                link: 'https://xuanxuan1231.github.io/OpenCore-Multiboot/'
             },
             {
-                text: 'GPU Buyers Guide',
-                link: 'https://dortania.github.io/GPU-Buyers-Guide/'
+                text: '图形卡购买指南',
+                link: 'https://xuanxuan1231.github.io/GPU-Buyers-Guide/'
             },
             {
-                text: 'Wireless Buyers Guide',
-                link: 'https://dortania.github.io/Wireless-Buyers-Guide/'
+                text: '无线网卡购买指南',
+                link: 'https://xuanxuan1231.github.io/Wireless-Buyers-Guide/'
             },
             {
-                text: 'Anti Buyers Guide',
-                link: 'https://dortania.github.io/Anti-Hackintosh-Buyers-Guide/'
+                text: '购买踩坑指南',
+                link: 'https://xuanxuan1231.github.io/Anti-Hackintosh-Buyers-Guide/'
             },
             ]
         },
         ],
         sidebar: [{
-            title: 'Introduction',
+            title: '介绍',
             collapsable: false,
             sidebarDepth: 1,
             children: [
@@ -105,11 +105,11 @@ module.exports = {
             ]
         },
         {
-            title: 'USB Creation',
+            title: 'USB创建',
             collapsable: false,
             sidebarDepth: 2,
             children: [{
-                title: 'Creating the USB',
+                title: '创建USB',
                 collapsable: true,
                 path: '/installer-guide/',
                 sidebarDepth: 1,
@@ -121,15 +121,15 @@ module.exports = {
             },
                 '/installer-guide/opencore-efi',
                 'ktext',
-            ['https://dortania.github.io/Getting-Started-With-ACPI/', 'Getting started with ACPI'],
+            ['https://xuanxuan1231.github.io/Getting-Started-With-ACPI/', 'ACPI入门'],
                 '/config.plist/',
             ]
         },
         {
-            title: 'Configs',
+            title: '配置',
             collapsable: false,
             children: [{
-                title: 'Intel Desktop config.plist',
+                title: 'Intel台式机config.plist',
                 collapsable: true,
                 sidebarDepth: 1,
                 children: [
@@ -145,7 +145,7 @@ module.exports = {
                 ]
             },
             {
-                title: 'Intel Laptop config.plist',
+                title: 'Intel笔记本config.plist',
                 collapsable: true,
                 sidebarDepth: 1,
                 children: [
@@ -174,7 +174,7 @@ module.exports = {
                 ]
             },
             {
-                title: 'AMD Desktop config.plist',
+                title: 'AMD台式机config.plist',
                 collapsable: true,
                 sidebarDepth: 1,
                 children: [
@@ -182,11 +182,11 @@ module.exports = {
                     '/AMD/zen',
                 ]
             },
-            ['/config.plist/security', 'Apple Secure Boot']
+            ['/config.plist/security', 'Apple安全启动']
             ]
         },
         {
-            title: 'Installation',
+            title: '安装',
             collapsable: false,
             children: [
                 '/installation/installation-process',
@@ -194,7 +194,7 @@ module.exports = {
             ]
         },
         {
-            title: 'Troubleshooting',
+            title: '排错',
             collapsable: false,
             children: [
                 '/troubleshooting/troubleshooting',
@@ -216,58 +216,58 @@ module.exports = {
             ]
         },
         {
-            title: 'Post Install',
+            title: '安装后',
             collapsable: false,
             children: [
-                ['https://dortania.github.io/OpenCore-Post-Install/', 'Post-Install'],
+                ['https://xuanxuan1231.github.io/OpenCore-Post-Install/', '安装后'],
                 {
-                    title: 'Universal',
+                    title: '通用',
                     collapsable: true,
                     sidebarDepth: 1,
                     children: [
-                        ['https://dortania.github.io/OpenCore-Post-Install/universal/security', 'Security and FileVault'],
-                        ['https://dortania.github.io/OpenCore-Post-Install/universal/audio', 'Fixing Audio'],
-                        ['https://dortania.github.io/OpenCore-Post-Install/universal/oc2hdd', 'Booting without USB'],
-                        ['https://dortania.github.io/OpenCore-Post-Install/universal/update', 'Updating OpenCore, kexts and macOS'],
-                        ['https://dortania.github.io/OpenCore-Post-Install/universal/drm', 'Fixing DRM'],
-                        ['https://dortania.github.io/OpenCore-Post-Install/universal/iservices', 'Fixing iServices'],
-                        ['https://dortania.github.io/OpenCore-Post-Install/universal/pm', 'Fixing Power Management'],
-                        ['https://dortania.github.io/OpenCore-Post-Install/universal/sleep', 'Fixing Sleep'],
-                        ['https://dortania.github.io/OpenCore-Post-Install/usb/', 'Fixing USB'],
+                        ['https://xuanxuan1231.github.io/OpenCore-Post-Install/universal/security', '安全性和文件保险箱'],
+                        ['https://xuanxuan1231.github.io/OpenCore-Post-Install/universal/audio', '修复音频'],
+                        ['https://xuanxuan1231.github.io/OpenCore-Post-Install/universal/oc2hdd', '不用USB引导'],
+                        ['https://xuanxuan1231.github.io/OpenCore-Post-Install/universal/update', '更新OpenCore，内核扩展和macOS'],
+                        ['https://xuanxuan1231.github.io/OpenCore-Post-Install/universal/drm', '修复DRM'],
+                        ['https://xuanxuan1231.github.io/OpenCore-Post-Install/universal/iservices', '修复i服务'],
+                        ['https://xuanxuan1231.github.io/OpenCore-Post-Install/universal/pm', '修复电源管理'],
+                        ['https://xuanxuan1231.github.io/OpenCore-Post-Install/universal/sleep', '修复睡眠'],
+                        ['https://xuanxuan1231.github.io/OpenCore-Post-Install/usb/', '修复USB'],
                     ]
                 },
                 {
-                    title: 'Laptop Specifics',
+                    title: '笔记本的特殊性',
                     collapsable: true,
                     children: [
-                        ['https://dortania.github.io/OpenCore-Post-Install/laptop-specific/battery', 'Fixing Battery Read-outs'],
+                        ['https://xuanxuan1231.github.io/OpenCore-Post-Install/laptop-specific/battery', '修复电池读数'],
 
                     ]
                 },
                 {
-                    title: 'Cosmetics',
+                    title: '美化',
                     collapsable: true,
                     children: [
-                        ['https://dortania.github.io/OpenCore-Post-Install/cosmetic/verbose', 'Fixing Resolution and Verbose'],
-                        ['https://dortania.github.io/OpenCore-Post-Install/cosmetic/gui', 'Add GUI and Boot-chime'],
+                        ['https://xuanxuan1231.github.io/OpenCore-Post-Install/cosmetic/verbose', '修复分辨率和啰嗦模式'],
+                        ['https://xuanxuan1231.github.io/OpenCore-Post-Install/cosmetic/gui', '添加GUI和引导铃声'],
                     ]
                 },
                 {
-                    title: 'Multiboot',
+                    title: '多重引导',
                     collapsable: true,
                     children: [
-                        ['https://dortania.github.io/OpenCore-Multiboot/', 'OpenCore Multiboot'],
-                        ['https://dortania.github.io/OpenCore-Post-Install/multiboot/bootstrap', 'Setting up LauncherOption'],
-                        ['https://dortania.github.io/OpenCore-Post-Install/multiboot/bootcamp', 'Installing BootCamp'],
+                        ['https://xuanxuan1231.github.io/OpenCore-Multiboot/', 'OpenCore Multiboot'],
+                        ['https://xuanxuan1231.github.io/OpenCore-Post-Install/multiboot/bootstrap', '设置启动器选项'],
+                        ['https://xuanxuan1231.github.io/OpenCore-Post-Install/multiboot/bootcamp', '安装BootCamp'],
                     ]
                 },
                 {
-                    title: 'Miscellaneous',
+                    title: '其他',
                     collapsable: true,
                     children: [
-                        ['https://dortania.github.io/OpenCore-Post-Install/misc/rtc', 'Fixing RTC'],
-                        ['https://dortania.github.io/OpenCore-Post-Install/misc/msr-lock', 'Fixing CFG Lock'],
-                        ['https://dortania.github.io/OpenCore-Post-Install/misc/nvram', 'Emulated NVRAM'],
+                        ['https://xuanxuan1231.github.io/OpenCore-Post-Install/misc/rtc', '修复RTC'],
+                        ['https://xuanxuan1231.github.io/OpenCore-Post-Install/misc/msr-lock', '修复CFG锁'],
+                        ['https://xuanxuan1231.github.io/OpenCore-Post-Install/misc/nvram', '模拟NVRAM'],
                     ]
                 },
             ]
@@ -280,7 +280,7 @@ module.exports = {
                 '/extras/kaslr-fix',
                 '/extras/spoof',
                 '/extras/ventura',
-                ['https://github.com/dortania/OpenCore-Install-Guide/tree/master/clover-conversion', 'Clover Conversion'],
+                ['https://github.com/xuanxuan1231/OpenCore-Install-Guide/tree/master/clover-conversion', 'Clover Conversion'],
                 '/extras/smbios-support.md',
             ]
         },

@@ -1,19 +1,21 @@
 {
-    "name": "OpenCore-Install-Guide",
+    "name": "OpenCore安装指南",
     "version": "0.8.8",
     "description": "Guide to put macOS on unsupported devices",
     "main": "",
     "author": {
-        "name": "Dortania",
-        "url": "https://github.com/dortania"
+        "name": "Wenxuan",
+        "url": "https://github.com/xuanxuan1231"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/dortania/OpenCore-Install-Guide.git"
+        "url": "git+https://github.com/xuanxuan1231/OpenCore-Install-Guide.git"
     },
     "scripts": {
         "dev": "vuepress dev",
         "build": "vuepress build",
+        "windev": "SET NODE_OPTIONS=--openssl-legacy-provider && vuepress dev",
+        "winbuild":"SET NODE_OPTIONS=--openssl-legacy-provider && vuepress build",
         "fix-lint": "run-script-os",
         "fix-lint:default": "(echo Attempting to fix lint... && markdownlint -c .markdownlint.json -p .markdownlintignore '**/*.md' -f && echo Fixed successfully, please commit.) || (echo Fix failed! && exit 1)",
         "fix-lint:win32": "(echo Attempting to fix lint... && markdownlint -c .markdownlint.json -p .markdownlintignore **/*.md -f && echo Fixed successfully, please commit.) || (echo Fix failed! && exit 1)",
@@ -44,5 +46,5 @@
         "vuepress-plugin-fulltext-search": "^2.2.1",
         "vuepress-theme-succinct": "^1.7.2"
     },
-    "homepage": "https://dortania.github.io/OpenCore-Install-Guide/"
+    "homepage": "https://xuanxuan1231.github.io/OpenCore-Install-Guide/"
 }
