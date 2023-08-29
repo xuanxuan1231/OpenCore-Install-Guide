@@ -6,6 +6,7 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@master
+
     - name: Install
       run: npm i
 
@@ -13,6 +14,7 @@ jobs:
       uses: jenkey2011/vuepress-deploy@master
       env:
         ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        TARGET_REPO: xuanxuan1231/OpenCore-Install-Guide-new
+        # TARGET_REPO: username/repo
+        TARGET_BRANCH: gh_pages
         BUILD_SCRIPT: npm run build
         BUILD_DIR: .vuepress/dist/
