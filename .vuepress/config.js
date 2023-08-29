@@ -83,7 +83,7 @@ module.exports = {
                 link: 'https://xuanxuan1231.github.io/OpenCore-Multiboot/'
             },
             {
-                text: '图形卡购买指南',
+                text: '显卡购买指南',
                 link: 'https://xuanxuan1231.github.io/GPU-Buyers-Guide/'
             },
             {
