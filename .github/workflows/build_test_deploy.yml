@@ -13,6 +13,6 @@ jobs:
       uses: jenkey2011/vuepress-deploy@master
       env:
         ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        TARGET_REPO: xuanxuan1231/OpenCore-Install-Guide-new
+        TARGET_REPO: xuanxuan1231/OpenCore-Install-Guide
         BUILD_SCRIPT: npm run build
         BUILD_DIR: .vuepress/dist/
