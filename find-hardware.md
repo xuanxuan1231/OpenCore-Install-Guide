@@ -27,7 +27,7 @@
 |:-------------------------------------------------------|:--------------------------------------------------------------|
 | ![](./images/finding-hardware-md/GPU-model-aida64.png) | ![](./images/finding-hardware-md/GPU-model-devicemanager.png) |
 
-### Chipset Model
+### 芯片组型号
 
 | AIDA64                                                     | 设备管理器                                                     |
 |:-----------------------------------------------------------|:------------------------------------------------------------------|
@@ -48,7 +48,7 @@
   * `键盘`
   * `鼠标和其他指针设备`
 
-* 要查看设备的确切连接类型，请选择指针设备，然后进入`View -> Device by Connection`。这将澄清它是否通过PS2, I2C, SMBus, USB等
+* 要查看设备的确切连接类型，请选择指针设备，然后进入`查看 -> 按连接列出设备`。这将澄清它是否通过PS2, I2C, SMBus, USB等
 
 根据设备的不同，它可能显示在多个名称和连接下。需要关注的主要问题有:
   
@@ -81,7 +81,7 @@
 
 :::
   
-### Audio Codec
+### 音频编解码器
 
 | AIDA64                                                        | 设备管理器                                                    |
 |:--------------------------------------------------------------|:------------------------------------------------------------------|
@@ -97,7 +97,7 @@
 
 由于某些oem提供设备名称的方式，您可以通过设备管理器获得最准确的信息是通过PCI ID(例如`PCI\VEN_14E4&DEV_43A0` 对应于供应商ID`14E4`和设备ID`43A0`)。这意味着你需要谷歌ID并找出确切的设备ID;然而，AIDA64可以正确地呈现名称，这可能会容易得多。
 
-### Drive Model
+### 磁盘型号
 
 | AIDA64                                                  | 设备管理器                                                 |
 |:--------------------------------------------------------|:---------------------------------------------------------------|
@@ -105,140 +105,140 @@
 
 由于OEM没有提供有关驱动器的详细信息，您需要Google一下哪个驱动器与显示的名称匹配。
 
-## Finding Hardware using Linux
+## 使用Linux查找你的硬件
 
-For finding hardware using Linux, we'll be using a few tools:
+为了使用Linux查找硬件，我们将使用一些工具:
 
 * `pciutils`
 * `dmidecode`
 
-Below you'll find a list of commands to run in the terminal, thankfully most Linux distros will come with these tools already installed. If not, you will likely find them in your distro's package manager.
+下面是要在终端中运行的命令列表，值得庆幸的是，大多数Linux发行版都已经安装了这些工具。如果没有，您可能会在发行版的包管理器中找到它们。
 
-### CPU Model
+### CPU型号
 
 ```sh
 grep -i "model name" /proc/cpuinfo
 ```
 
-### GPU Model
+### 显卡型号
 
 ```sh
 lspci | grep -i --color "vga\|3d\|2d"
 ```
 
-### Chipset Model
+### 芯片组型号
 
 ```sh
 dmidecode -t baseboard
 ```
 
-### Keyboard, Trackpad and  Touchscreen Connection Type
+### 键盘，触控板和触摸屏连接类型
 
 ```sh
 dmesg | grep -i input
 ```
 
-### Audio Codec
+### 音频编解码器
 
 ```sh
 aplay -l
 ```
 
-### Network Controller models
+### 网络控制器型号
 
-Basic info:
+基本信息:
 
 ```sh
 lspci | grep -i network
 ```
 
-More in-depth info:
+更深入的信息:
 
 ```sh
 lshw -class network
 ```
 
-### Drive Model
+### 磁盘型号
 
 ```sh
 lshw -class disk -class storage
 ```
 
-## Finding Hardware using OCSysInfo
+## 使用OCSysInfo查找硬件
 
-There are 2 methods of obtaining and running OCSysInfo:
+获取和运行OCSysInfo有两种方法:
 
-* [Precompiled binaries](https://github.com/KernelWanderers/OCSysInfo/releases)
-* Manually cloning the [repository](https://github.com/KernelWanderers/OCSysInfo)
+* [预编译的二进制文件](https://github.com/KernelWanderers/OCSysInfo/releases)
+* 手动克隆[存储库](https://github.com/KernelWanderers/OCSysInfo)
 
-::: tip
-We recommend you download [the binaries](https://github.com/KernelWanderers/OCSysInfo/releases), as it is the simplest and easiest method.
+::: tip 提示
+我们建议您下载[二进制文件](https://github.com/KernelWanderers/OCSysInfo/releases), 因为这是最简单和最容易的方法。
 
-If you want to learn more about manually cloning the repository, you can check out the OCSysInfo [mini-guide](https://github.com/KernelWanderers/OCSysInfo/tree/main/mini-guide).
+如果您想了解更多关于手动克隆存储库的信息，可以查看OCSysInfo[指南]。(https://github.com/KernelWanderers/OCSysInfo/tree/main/mini-guide).
 :::
 
-### Discovering hardware
+### 发现硬件
 
-::: warning
-Laptop users: before we start, we advise you to disconnect any external USB devices, as this may lead to ambiguous or unnecessary information collected which may confuse you.
+::: warning 警告
+笔记本电脑用户:在我们开始之前，我们建议您断开任何外部USB设备，因为这可能导致模棱两可或不必要的信息收集，可能会使您感到困惑。
 :::
 
-After you've successfully installed and ran the application, you should be greeted with the following screen:
+成功安装并运行应用程序后，您应该看到以下屏幕:
 
 ![](./images/finding-hardware-md/ocsysinfo-example.png)
 
-From here, you can type in `d` and press `ENTER`/`RETURN`, after, you should be greeted with a similar-looking screen:
+从这里，你可以输入`d`，然后按`ENTER`/`RETURN`，之后，你应该会看到一个类似的屏幕:
 
 ![](./images/finding-hardware-md/ocsysinfo-hwdisc.png)
 
-### CPU Model
+### CPU型号
 
 ![](./images/finding-hardware-md/cpu-model-ocsysinfo.png)
 
-Besides the CPU model, it also lists the CPU's codename, highest SSE version supported and SSSE3 availability.
+除了CPU型号，它还列出了CPU的代号、支持的最高SSE版本和SSSE3可用性。
 
-### GPU Model
+### 显卡型号
 
 ![](./images/finding-hardware-md/gpu-model-ocsysinfo.png)
 
-In this case, the machine has two GPUs:
+在这种情况下，机器有两个显卡:
 
-* iGPU (Intel UHD Graphics 630)
-* dGPU (AMD Radeon R9 390X)
+* 核芯显卡 (Intel UHD Graphics 630)
+* 独立显卡 (AMD Radeon R9 390X)
 
-Besides the model names, it also lists the GPUs' codename, ACPI & PCI path, which you may soon find useful as you progress in your hackintosh journey.
+除了模型名称外，它还列出了显卡的代号，ACPI和PCI路径，随着您在黑苹果旅程中的进展，您可能很快就会发现这些有大用处。
 
-### Keyboard and Trackpad Connection Type
+### 键盘和触控板连接类型
 
-::: details SMBus Trackpad
+::: details SMBus触控板
 ![](./images/finding-hardware-md/id-smbus-ocsysinfo.png)
-Trackpad: `SMBus` <br /> Keyboard: `PS/2`
+触控板: `SMBus` <br /> 键盘: `PS/2`
 
-Credit for providing image: [ThatCopy](https://github.com/ThatCopy)
+[ThatCopy](https://github.com/ThatCopy)提供图片
 :::
 
-::: details I2C Trackpad
+::: details I2C触控板
 ![](./images/finding-hardware-md/id-i2c-ocsysinfo.png)
-Trackpad: `I2C` <br /> Keyboard: `PS/2`
+触控板: `I2C` <br /> 键盘: `PS/2`
 
-Credit for providing image: [Mahas](https://github.com/Mahas1)
+[Mahas](https://github.com/Mahas1)提供图片
 :::
 
-::: details PS/2 Trackpad
+::: details PS/2 触控板
 ![](./images/finding-hardware-md/id-ps2-ocsysinfo.png)
-Trackpad: `PS/2` <br /> Keyboard: `PS/2`
+触控板: `PS/2` <br /> 键盘: `PS/2`
 
-Credit for providing image: [Tasty0](https://github.com/Tasty0)
+[Tasty0](https://github.com/Tasty0)提供图片
 :::
 
-### Audio codec
+### 音频编解码器
 
 ![](./images/finding-hardware-md/audio-codec-ocsysinfo.png)
 
-### Network models
+### 网卡型号
 
 ![](./images/finding-hardware-md/network-model-ocsysinfo.png)
 
-### Drive model
+### 磁盘型号
 
 ![](./images/finding-hardware-md/drive-model-ocsysinfo.png)
