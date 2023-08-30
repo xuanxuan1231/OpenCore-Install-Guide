@@ -60,6 +60,7 @@ module.exports = {
 
     themeConfig: {
         lastUpdated: true,
+        lastUpdatedText: '最后更新',
         repo: 'https://github.com/xuanxuan1231/OpenCore-Install-Guide',
         editLinks: true,
         editLinkText: '帮助我们改进此页！',
