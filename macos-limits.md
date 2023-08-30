@@ -6,14 +6,14 @@
 
 [[toc]]
 
-And for more detailed guides on the subject, see here:
+有关该主题的更详细指南，请参阅此处:
 
 * [显卡购买指南](https://xuanxuan1231.github.io/GPU-Buyers-Guide/)
-  * Check if your GPU is supported and which macOS version you can run.
+  * 检查你的显卡是否受支持，以及你可以运行哪个macOS版本。
 * [无线网卡购买指南](https://xuanxuan1231.github.io/Wireless-Buyers-Guide/)
-  * Check if your WiFi card is supported.
+  * 检查是否支持您的无线网卡卡。
 * [购买踩坑指南](https://xuanxuan1231.github.io/Anti-Hackintosh-Buyers-Guide/)
-  * Overall guide on what to avoid and what pitfalls your hardware may hit.
+  * 关于应该避免什么以及硬件可能遇到的坑的总体指南。
 
 ## 处理器支持
 
@@ -105,7 +105,7 @@ SSE要求:
 | [Amber](https://en.wikipedia.org/wiki/Kaby_Lake#List_of_8th_generation_Amber_Lake_Y_processors), [Whiskey](https://en.wikipedia.org/wiki/Whiskey_Lake_(microarchitecture)), [Comet Lake](https://en.wikipedia.org/wiki/Comet_Lake_(microprocessor)) | 10.14.1 | ^^ | ^^ | 0x0806E0(U/Y) |
 | [Comet Lake](https://en.wikipedia.org/wiki/Comet_Lake_(microprocessor)) | 10.15.4 | ^^ | ^^ | 0x0906E0(S/H)|
 | [Ice Lake](https://en.wikipedia.org/wiki/Ice_Lake_(microprocessor)) | ^^ | ^^ | ^^ | 0x0706E5(U) |
-| [Rocket Lake](https://en.wikipedia.org/wiki/Rocket_Lake) | ^^ | ^^ | Requires Comet Lake CPUID | 0x0A0671 |
+| [Rocket Lake](https://en.wikipedia.org/wiki/Rocket_Lake) | ^^ | ^^ | 需要Comet Lake CPUID | 0x0A0671 |
 | [Tiger Lake](https://en.wikipedia.org/wiki/Tiger_Lake_(microprocessor)) | <span style="color:red"> N/A </span> | <span style="color:red"> N/A </span> | <span style="color:red"> 未测试 </span> | 0x0806C0(U) |
 
 :::
@@ -152,7 +152,7 @@ SSE要求:
 对于**带有独立显卡的笔记本电脑**，还有一个重要的提示:
 
 * 90%的独立显卡无法工作，因为它们连接在macOS不支持的配置中(可切换图形)。对于NVIDIA分立显卡，这通常被称为Optimus。不可能将这些分立的显卡用于内部显示，因此通常建议禁用它们并关闭它们(将在本指南的后面介绍)。
-* 然而，在某些情况下，为任何外部输出(HDMI, mini DisplayPort等)分立GPU供电，这可能工作，也可能不工作;在这种情况下，如果它工作，你将不得不保持卡运行。
+* 然而，在某些情况下，为任何外部输出(HDMI, mini DisplayPort等)分立GPU供电时可能工作，也可能不工作;在这种情况下，如果它工作，你将不得不保持卡运行。
 * 然而，有些笔记本电脑很少没有可切换的显卡，所以可以使用独立显卡(如果macOS支持的话)，但接线和设置通常会引起问题。
 
 **有关支持的GPU的完整列表，请参阅[显卡购买指南](https://xuanxuan1231.github.io/GPU-Buyers-Guide/)**
@@ -191,7 +191,7 @@ SSE要求:
 | [Polaris 10](https://en.wikipedia.org/wiki/Radeon_RX_400_series), [20](https://en.wikipedia.org/wiki/Radeon_RX_500_series) | 10.12.1 | <span style="color:green"> 当前 </span> | ^^ |
 | [Vega 10](https://en.wikipedia.org/wiki/Radeon_RX_Vega_series) | 10.12.6 | ^^ | ^^ |
 | [Vega 20](https://en.wikipedia.org/wiki/Radeon_RX_Vega_series) | 10.14.5 | ^^ | ^^ |
-| [Navi 10](https://en.wikipedia.org/wiki/Radeon_RX_5000_series) | 10.15.1 | ^^ | Requires `agdpmod=pikera` in boot-args |
+| [Navi 10](https://en.wikipedia.org/wiki/Radeon_RX_5000_series) | 10.15.1 | ^^ | 需要引导参数`agdpmod=pikera` |
 | [Navi 20](https://en.wikipedia.org/wiki/Radeon_RX_6000_series) | 11.4 | ^^ | <span style="color:yellow"> 目前只有一些Navi 21型号可以工作 </span> |
 
 :::
@@ -236,13 +236,13 @@ SSE要求:
 在大多数情况下，支持所有基于SATA的驱动器和大多数NVMe驱动器。只有少数例外:
 
 * **三星PM981、PM991和美光2200S NVMe固态硬盘**
-  * 这些SSD不兼容开箱即用(导致kernel panic)，因此需要[NVMeFix.kext](https://github.com/acidanthera/NVMeFix/releases)来修复这些内核恐慌。请注意，即使使用NVMeFix.kext，这些驱动器仍然可能导致启动问题。
+  * 这些SSD不兼容开箱即用(导致kernel panic)，因此需要[NVMeFix.kext](https://github.com/acidanthera/NVMeFix/releases)来修复这些kernel panic。请注意，即使使用NVMeFix.kext，这些驱动器仍然可能导致启动问题。
   * 与此相关的是，三星970 EVO Plus NVMe固态硬盘也有同样的问题，但在固件更新中得到了修复;[在这里](https://www.samsung.com/semiconductor/minisite/ssd/download/tools/)获取更新(Windows下的Samsung Magician或可引导ISO)。
   * 同样需要注意的是，使用[Intel Optane Memory](https://www.intel.com/content/www/us/en/architecture-and-technology/optane-memory.html)或[Micron 3D XPoint](https://www.micron.com/products/advanced-solutions/3d-xpoint-technology)进行硬盘加速的笔记本电脑在macOS中是不支持的。一些用户报告说，在Catalina中甚至可以成功地读写支持，但我们强烈建议删除驱动器，以防止任何潜在的启动问题。
-    * 请注意，如果在macOS中禁用Optane部分，则英特尔Optane内存H10/H20型号兼容。更多信息可以在[这里](https://blog.csdn.net/weixin_46341175/article/details/126626808)找到([原文](https://zhuanlan.zhihu.com/p/429073173))。
+    * 请注意，如果在macOS中禁用Optane部分，则英特尔Optane Memory H10/H20型号兼容。更多信息可以在[这里](https://blog.csdn.net/weixin_46341175/article/details/126626808)找到([原文](https://zhuanlan.zhihu.com/p/429073173))。
   
 * **Intel 600p**
-  * 虽然不是无法启动，但请注意此模型可能会导致许多问题。[Any fix for Intel 600p NVMe Drive? #1286](https://github.com/acidanthera/bugtracker/issues/1286)
+  * 虽然不是无法启动，但请注意此型号可能会导致许多问题。[Any fix for Intel 600p NVMe Drive? #1286](https://github.com/acidanthera/bugtracker/issues/1286)
   * 660p的型号没问题
 
 ## 有线网络
@@ -279,6 +279,6 @@ SSE要求:
 * **耳机插孔组合**
   * 一些带有组合耳机插孔的笔记本电脑可能无法通过它们输入音频，必须使用内置麦克风或通过USB连接外部音频输入设备。
 * **Thunderbolt USB-C接口**
-  * (黑苹果) macOS对Thunderbolt的支持目前仍不确定，对Alpine Ridge控制器的支持更是如此，目前大多数笔记本电脑都有这种控制器。有人尝试让控制器保持开机状态，这样就可以让Thunderbolt和USB-C热插拔工作，但这是以内核恐慌和/或USB-C在睡眠后断开为代价的。如果你想使用端口的USB-C端并且能够睡眠，你必须在启动时插入并保持插入状态。
+  * (黑苹果) macOS对Thunderbolt的支持目前仍不确定，对Alpine Ridge控制器的支持更是如此，目前大多数笔记本电脑都有这种控制器。有人尝试让控制器保持开机状态，这样就可以让Thunderbolt和USB-C热插拔工作，但这是以kernel panic和/或USB-C在睡眠后断开为代价的。如果你想使用端口的USB-C端并且能够睡眠，你必须在启动时插入并保持插入状态。
   * 注意:这不适用于仅USB-C端口-仅适用于Thunderbolt 3和USB-C组合端口。
   * 在BIOS中禁用Thunderbolt也可以解决这个问题。
