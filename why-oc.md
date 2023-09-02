@@ -16,7 +16,7 @@
 * 更好的总体安全在许多形式:
   * 无需禁用系统完整性保护(SIP)
   * 内置文件保险箱2支持
-  * [Vaulting](https://dortania.github.io/OpenCore-Post-Install/universal/security.html#Vault) 允许创建EFI快照，防止不必要的修改
+  * [保险箱](https://xuanxuan1231.github.io/OpenCore-Post-Install/universal/security.html#保险箱) 允许创建EFI快照，防止不必要的修改
   * 跳跃的
     * 无论是UEFI还是Apple的变体
 * 通过读取启动盘设置的NVRAM变量，支持BootCamp切换和启动设备选择，就像真正的Mac一样。
