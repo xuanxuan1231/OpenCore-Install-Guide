@@ -1,6 +1,6 @@
-# Legacy macOS: Offline Method
+# 旧版macOS：离线办法
 
-This method allows us to download full installers from Apple, however is limited to the following macOS versions:
+这种方法允许我们从苹果下载完整的安装程序，但仅限于以下macOS版本:
 
 * Lion (10.7)
 * Mountain Lion (10.8)
@@ -8,56 +8,56 @@ This method allows us to download full installers from Apple, however is limited
 * El Capitan (10.11)
 * Sierra (10.12)
 
-::: tip
+::: tip 提示
 
-Mavericks (10.9) is not available with this method. See [Legacy macOS: Online Method](./mac-install-recovery.md) for this version.
+Mavericks(10.9)无法使用此方法。此版本参见[旧版macOS：在线办法](./mac-install-recovery.md)。
 
 :::
 
-To start, go to one of the following links:
+要开始，请进入以下链接之一:
 
-* [Mac OS X Lion Installer](https://support.apple.com/kb/DL2077)
-* [Mac OS X Mountain Lion Installer](https://support.apple.com/kb/DL2076)
-* [How to get old versions of macOS](https://support.apple.com/en-us/HT211683) (for 10.10 - 10.12 installers)
+* [Mac OS X Lion安装程序](https://support.apple.com/kb/DL2077)
+* [Mac OS X Mountain Lion安装程序](https://support.apple.com/kb/DL2076)
+* [如何获得旧版本的macOS](https://support.apple.com/zh-cn/HT211683)（对于10.10 - 10.12安装程序）
 
-Download your desired version and a .dmg file should be provided, with a .pkg inside.
+下载所需的版本，应该提供.dmg文件，其中包含.pkg文件。
 
-Depending on what OS you're on, you can install this package, which will provide you with a "Install (macOS version).app" and head to [Setting up the installer](#setting-up-the-installer); however if you receive this error:
+根据你使用的操作系统，你可以安装这个包，它会为你提供一个“安装(macOS版本)”。然后转到[设置安装程序](./mac-install.md#设置安装程序)。但是，如果您收到此错误：
 
 ![](../images/installer-guide/legacy-mac-install-md/unsupported.png)
 
-Your SMBIOS is too new to run that version natively (even if you're trying to make a USB for a different computer, it still checks). This means we'll need to manually extract the installer.
+这意味着您的SMBIOS太新了，无法本地运行该版本(即使您试图为另一台计算机制作USB，它仍然会检查)。这意味着我们需要手动提取安装程序。
 
-### Extracting the Installer
+### 提取安装程序
 
-To start, grab the InstallMacOSX/InstallOS.dmg and mount it:
+首先，获取InstallMacOSX/InstallOS.dmg并挂载:
 
 ![](../images/installer-guide/legacy-mac-install-md/mount.png)
 
-Next, let's open up a Terminal window and extract the package to a folder on our desktop. This may take a while.
+接下来，让我们打开终端窗口并将软件包解压缩到桌面上的一个文件夹中。这可能需要一段时间。
 
-* For Lion and Mountain Lion:
+* 对于Lion和Mountain Lion:
 
 ```sh
 cd ~/Desktop
 pkgutil --expand-full "/Volumes/Install Mac OS X/InstallMacOSX.pkg" OSInstaller
 ```
 
-* For Yosemite and El Capitan:
+* 对于Yosemite和El Capitan:
 
 ```sh
 cd ~/Desktop
 pkgutil --expand-full "/Volumes/Install OS X/InstallMacOSX.pkg" OSInstaller
 ```
 
-* For Sierra:
+* 对于Sierra:
 
 ```sh
 cd ~/Desktop
 pkgutil --expand-full "/Volumes/Install macOS/InstallOS.pkg" OSInstaller
 ```
 
-Next, run the following (one at a time):
+接下来，运行以下命令(一次一个):
 
 * Lion:
 
@@ -99,4 +99,4 @@ mv InstallESD.dmg "Payload/Install macOS Sierra.app/Contents/SharedSupport/"
 mv "Payload/Install macOS Sierra.app" /Applications
 ```
 
-### Once you're finished, you can head to [Setting up the installer](./mac-install.md#setting-up-the-installer)
+### 完成后，您可以转到[设置安装程序](./mac-install.md#设置安装程序)

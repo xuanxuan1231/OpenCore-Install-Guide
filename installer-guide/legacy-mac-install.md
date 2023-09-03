@@ -1,3 +1,3 @@
-# Grabbing older versions of macOS/OS X
+# 抓取旧版本的macOS/OS X
 
-This page has been deprecated, see the respective install pages for legacy macOS installers
+此页已弃用，请参阅遗留macOS安装程序的相应安装页

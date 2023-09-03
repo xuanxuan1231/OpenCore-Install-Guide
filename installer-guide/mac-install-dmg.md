@@ -1,69 +1,69 @@
-# Legacy macOS: Disk Images
+# 旧版macOS：磁盘映像
 
-This method instead relies on hosted images either from Apple or Acidanthera, and restoring onto your drive.
+这种方法依赖于来自Apple或Acidanthera的托管映像，并将其恢复到您的驱动器上。
 
-#### Acidanthera Images
+#### Acidanthera映像
 
-The below installers were pulled from genuine Mac restore disks with their SMBIOS lock removed, contents of OS X itself have not been modified in any way.
+下面的安装程序是从真正的Mac恢复磁盘中提取的，删除了SMBIOS锁，OS X本身的内容没有以任何方式修改。
 
-* [OS X 10.4.10(8R4088)](https://archive.org/details/10.4.10-8-r-4088-acdt)[MEGA Mirror](https://mega.nz/folder/D3ASzLzA#7sjYXE2X09f6aGjol_C7dg)
+* [OS X 10.4.10(8R4088)](https://archive.org/details/10.4.10-8-r-4088-acdt)[MEGA镜像](https://mega.nz/folder/D3ASzLzA#7sjYXE2X09f6aGjol_C7dg)
 
-* [OS X 10.5.7(9J3050)](https://archive.org/details/10.5.7-9-j-3050)[MEGA Mirror](https://mega.nz/folder/inRBTarD#zanf7fUbviwz3WHBU5xpCg)
+* [OS X 10.5.7(9J3050)](https://archive.org/details/10.5.7-9-j-3050)[MEGA镜像](https://mega.nz/folder/inRBTarD#zanf7fUbviwz3WHBU5xpCg)
 
-* [OS X 10.6.7(10J4139)](https://archive.org/details/10.6.7-10j3250-disk-images)[MEGA Mirror](https://mega.nz/folder/z5YUhYTb#gA_IRY5KMuYpnNCg7kR3ug/file/ioQkTagI)
+* [OS X 10.6.7(10J4139)](https://archive.org/details/10.6.7-10j3250-disk-images)[MEGA镜像](https://mega.nz/folder/z5YUhYTb#gA_IRY5KMuYpnNCg7kR3ug/file/ioQkTagI)
 
-#### Apple Images
+#### Apple映像
 
-Note that these images require you to have an Apple Developer account to access.
+请注意，这些映像需要你有一个Apple开发者账户才能访问。
 
 * [OS X 10.5.0 Golden Master(9a581)](https://download.developer.apple.com/Mac_OS_X/mac_os_x_v10.5_leopard_9a581/leopard_9a581_userdvd.dmg)
 
 * [OS X 10.6.0 Golden Master(10a432)](https://download.developer.apple.com/Mac_OS_X/mac_os_x_version_10.6_snow_leopard_build_10a432/mac_os_x_v10.6_build_10a432_user_dvd.dmg)
 
-### Restoring the drive
+### 恢复驱动器
 
-Now comes the fun part, you'll first want to open the dmg you just downloaded and have it mounted. Now open Disk Utility and format your drive as macOS Extended(HFS+) with a GUID partition map:
+现在是有趣的部分，您首先要打开刚刚下载的dmg并将其挂载。现在打开磁盘工具，用GUID分区映射将你的驱动器格式化为macOS日志式(HFS+):
 
-![Formatting the USB](../images/installer-guide/mac-install-md/format-usb.png)
+![格式化USB](../images/installer-guide/mac-install-md/format-usb.png)
 
 Next we have 2 options to follow:
 
-* [ASR Restore](#asr)(Apple Software Restore)
-  * Terminal based, works with SIP enabled
-* [Disk Utility Restore](#disk-utility)
+* [ASR恢复](#asr)(Apple Software Restore)
+  * 基于终端，在启用SIP的情况下工作
+* [磁盘管理恢复](#磁盘管理)
   * May require SIP disabled in newer OSes
   
 #### ASR
 
-Here you'll simply want to open terminal and run the following:
+这里你只需要打开终端并运行以下命令:
 
 ```sh
 sudo asr restore -source /Volumes/Mac\ OS\ X\ Install\ DVD  -target /Volumes/MyVolume -erase -noverify
 ```
 
-* **Note**: This may not align with your setup, please change accordingly:
-  * Change `/Volumes/Mac\ OS\ X\ Install\ DVD` to what your mounted Disk Image is called
-  * Change `/Volumes/MyVolume` to what your USB is called
+* **注**:这可能与您的设置不一致，请相应地更改:
+  * 将`/Volumes/Mac\ OS\ X\ Install\ DVD`更改为您挂载的磁盘映像的名称
+  * 将`/Volumes/MyVolume`更改为USB的名称
 
-### Once you're finished, you can head to [Setting up OpenCore's EFI environment](./mac-install.md#setting-up-opencore-s-efi-environment)
+### 一旦你完成，你可以前往[设置OpenCore的EFI环境](./mac-install.md#设置opencore的efi环境)
   
-#### Disk Utility
+#### 磁盘管理
 
-Due to some pesky issues with Disk Utility, many restores can fail if SIP is enabled. If you have issues we recommend either using the [ASR Method](#asr) or disable SIP.
+由于磁盘管理的一些麻烦问题，如果启用SIP，许多恢复可能会失败。如果您有问题，我们建议您使用[ASR方法](#asr)或禁用SIP。
 
-To start, open Disk Utility and you should see both your USB drive and the Disk Image in the sidebar. From here, select restore
+首先，打开磁盘管理，您应该在侧边栏中看到USB驱动器和磁盘映像。从这里，选择restore
 
 ![](../images/installer-guide/legacy-mac-install-md/pre-restore.png)
 ![](../images/installer-guide/legacy-mac-install-md/restore.png)
 
-::: details Troubleshooting
+::: details 排错
 
-If you get an error such as this one during restore:
+如果在恢复过程中出现如下错误:
 
 ![](../images/installer-guide/legacy-mac-install-md/sip-fail.png)
 
-This likely means SIP needs to be disabled, however we recommend using [ASR Method](#asr) instead.
+这可能意味着需要禁用SIP，但是我们建议使用[ASR方法](#asr)代替。
 
 :::
 
-### Once you're finished, you can head to [Setting up OpenCore's EFI environment](./mac-install.md#setting-up-opencore-s-efi-environment)
+### 一旦你完成，你可以前往[设置OpenCore的EFI环境](./mac-install.md#设置OpenCore的EFI环境)
