@@ -62,9 +62,9 @@ python3 ./macrecovery.py -b Mac-4B682C642B45593E -m 00000000000000000 download
 ![](../images/installer-guide/legacy-mac-install-md/fat32-erase.png)
 
 ::: details 下一步骤说明
-acidanthera更新了macrecovery，它现在会自动生成`com.apple.recovery`文件夹并将`BaseSystem`或`RecoveryImage`以及`chunklist`放入文件夹。你可以直接使用`com.apple.recovery`文件夹。
+acidanthera更新了macrecovery，它现在会自动生成`com.apple.recovery.boot`文件夹并将`BaseSystem`或`RecoveryImage`以及`chunklist`放入文件夹。你可以直接使用`com.apple.recovery.boot`文件夹。
 :::
-~~最后，在这个驱动器的根目录下创建一个名为`com.apple.recovery`的文件夹。并将新下载的BaseSystem/RecoveryImage文件放入:~~
+~~最后，在这个驱动器的根目录下创建一个名为`com.apple.recovery.boot`的文件夹。并将新下载的BaseSystem/RecoveryImage文件放入:~~
 
 ![](../images/installer-guide/legacy-mac-install-md/dmg-chunklist.png)
 
