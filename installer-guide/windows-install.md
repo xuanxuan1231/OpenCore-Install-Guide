@@ -11,7 +11,7 @@
 * [macrecovery.py](https://github.com/acidanthera/OpenCorePkg/releases)
   * 这需要[已安装的Python 3](https://www.python.org/downloads/)
 
-## Downloading macOS
+## 下载macOS
 
 要获取旧的安装程序非常容易，首先获取[OpenCorePkg](https://github.com/acidanthera/OpenCorePkg/releases)的副本，然后转到`/Utilities/macrecovery/`。接下来，单击当前文件夹路径旁边的，并键入`cmd`，在当前目录中打开命令提示符:
 
