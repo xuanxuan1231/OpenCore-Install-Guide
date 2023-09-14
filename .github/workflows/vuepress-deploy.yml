@@ -13,5 +13,5 @@ jobs:
       env:
         ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         TARGET_REPO: xuanxuan1231/OpenCore-Install-Guide
-        BUILD_SCRIPT: npm run build
+        BUILD_SCRIPT: npm run lnxbuild
         BUILD_DIR: .vuepress/dist/
