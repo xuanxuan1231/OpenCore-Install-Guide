@@ -15,8 +15,8 @@
 
 **注意**:
 
-* **Windows用户：**您将需要将EFI文件夹放在您之前制作的USB驱动器的根目录上
-* **Linux用户：**这是我们之前创建的`OPENCORE`分区
+*  **Windows用户：** 您将需要将EFI文件夹放在您之前制作的USB驱动器的根目录上
+*  **Linux用户：** 这是我们之前创建的`OPENCORE`分区
   * 注意，方法1只创建了1个分区，而方法2创建了2个分区
 
 现在让我们打开我们的EFI文件夹，看看里面是什么：
@@ -82,7 +82,7 @@
 
 * 请注意，来自Clover的UEFI驱动程序不支持OpenCore！（EmuVariableUEFI, aptiommemoryfix, OsxAptioFixDrv等）。有关支持的驱动程序和合并到OpenCore中的驱动程序的更多信息，请参阅[Clover固件驱动程序转换](https://github.com/xuanxuan1231/OpenCore-Install-Guide/blob/master/clover-conversion/clover-efi.md)。
 
-下面是一个被填充的EFI**_可以_**的样子（你的会有所不同）：
+下面是一个被填充的EFI **_可以_**的样子（你的会有所不同）：
 
 ![已填充的EFI文件夹](../images/installer-guide/opencore-efi-md/populated-efi.png)
 
