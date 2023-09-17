@@ -1,210 +1,210 @@
-# Gathering files
+# 收集文件
 
-This section is for gathering miscellaneous files for booting macOS, we do expect you to know your hardware well before starting and hopefully made a Hackintosh before as we won't be deep diving in here.
+本节是收集启动macOS的各种文件，我们希望你在开始之前对你的硬件有很好的了解，希望你之前做过一个黑苹果，因为我们不会在这里深入研究。
 
-> What's the best way to figure out if my hardware is supported?
+> 确定我的硬件是否受支持的最佳方法是什么?
 
-See the [**Hardware Limitations page**](macos-limits.md) for some better insight into what macOS requires to boot, hardware support between Clover and OpenCore are quite similar.
+参见[**硬件限制页面**](macos-limits.md)以更好地了解macOS启动需要什么，Clover和OpenCore之间的硬件支持非常相似。
 
-> What are some ways to figure out what hardware I have?
+> 有什么方法可以知道我有什么硬件?
 
-See the page before: [Finding your hardware](./find-hardware.md)
+参见前一页：[查找你的硬件](./find-hardware.md)
 
 [[toc]]
 
-## Firmware Drivers
+## 固件驱动程序
 
-Firmware drivers are drivers used by OpenCore in the UEFI environment. They're mainly required to boot a machine, either by extending OpenCore's patching ability or showing you different types of drives in the OpenCore picker(ie. HFS drives).
+固件驱动程序是OpenCore在UEFI环境下使用的驱动程序。它们主要是启动机器所需的，或者是通过扩展OpenCore的补丁功能，要么在OpenCore选择器中显示不同类型的驱动器（HFS驱动）。
 
-* **Location Note**: These files **must** be placed under `EFI/OC/Drivers/`
+* **位置**: 这些文件**必须**放在`EFI/OC/Drivers/`下
 
-### Universal
+### 通用
 
-::: tip Required Drivers
+::: tip 必需驱动程序
 
-For the majority of systems, you'll only need 2 `.efi` drivers to get up and running:
+对于大多数系统，您只需要2个`.efi`驱动程序启动和运行:
 
-* [HfsPlus.efi](https://github.com/acidanthera/OcBinaryData/blob/master/Drivers/HfsPlus.efi)(<span style="color:red">Required</span>)
-  * Needed for seeing HFS volumes(ie. macOS Installers and Recovery partitions/images). **Do not mix other HFS drivers**
-  * For Sandy Bridge and older(as well as low end Ivy Bridge(i3 and Celerons), see the legacy section below
-* [OpenRuntime.efi](https://github.com/acidanthera/OpenCorePkg/releases)(<span style="color:red">Required</span>)
-  * Replacement for [AptioMemoryFix.efi](https://github.com/acidanthera/AptioFixPkg), used as an extension for OpenCore to help with patching boot.efi for NVRAM fixes and better memory management.
-  * Reminder this was bundled in OpenCorePkg we downloaded earlier
+* [HfsPlus.efi](https://github.com/acidanthera/OcBinaryData/blob/master/Drivers/HfsPlus.efi)(<span style="color:red">必需</span>)
+  * 查看HFS卷（macOS安装程序和恢复分区/映像）需要。**请勿混合使用其他HFS驱动程序**
+  * 对于Sandy Bridge和更老版本（包括低端Ivy Bridge（i3和赛扬）），查看下面的旧版部分
+* [OpenRuntime.efi](https://github.com/acidanthera/OpenCorePkg/releases)(<span style="color:red">必需</span>)
+  * 替代[AptioMemoryFix.efi](https://github.com/acidanthera/AptioFixPkg)，用作OpenCore的扩展，以帮助修补引导。用于NVRAM修复和更好的内存管理。
+  * 提醒一下，这是在我们之前下载的OpenCorePkg中捆绑的
 
 :::
 
-### Legacy users
+### 旧版用户
 
-In addition to the above, if your hardware doesn't support UEFI(2011 and older era) then you'll need the following. Pay close attention to each entry as you may not need all 4:
+除此之外，如果您的硬件不支持UEFI（2011年及更早的版本），那么您需要以下内容。请密切关注每一个条目，因为您可能不需要全部4个条目:
 
 * [OpenUsbKbDxe.efi](https://github.com/acidanthera/OpenCorePkg/releases)
-  * Used for OpenCore picker on **legacy systems running DuetPkg**, [not recommended and even harmful on UEFI(Ivy Bridge and newer)](https://applelife.ru/threads/opencore-obsuzhdenie-i-ustanovka.2944066/page-176#post-856653)
+  * 用于**运行DuetPkg的旧系统**上的OpenCore拾取器，[在UEFI（Ivy Bridge及更新版本）上不推荐甚至有害](https://applelife.ru/threads/opencore-obsuzhdenie-i-ustanovka.2944066/page-176#post-856653)
 * [HfsPlusLegacy.efi](https://github.com/acidanthera/OcBinaryData/blob/master/Drivers/HfsPlusLegacy.efi)
-  * Legacy variant of HfsPlus, used for systems that lack RDRAND instruction support. This is generally seen on Sandy Bridge and older(as well as low end Ivy Bridge(i3 and Celerons))
-  * Don't mix this with HfsPlus.efi, choose one or the other depending on your hardware
+  * HfsPlus的旧版变体，用于缺乏RDRAND指令支持的系统。这通常在Sandy Bridge和更老的系统（以及低端Ivy Bridge（i3和Celerons））上看到。
+  * 不要把这个和HfsPlus.efi混在一起，根据你的硬件选择一个或另一个
 * [OpenPartitionDxe](https://github.com/acidanthera/OpenCorePkg/releases)
-  * Required to boot recovery on OS X 10.7 through 10.9
-    * This file is bundled with OpenCorePkg under EFI/OC/Drivers
-    * Note: OpenDuet users(ie. without UEFI) will have this driver built-in, not requiring it
-  * Not required for OS X 10.10, Yosemite and newer
+  * 在OS X 10.7到10.9上启动恢复时需要
+    * 该文件与OpenCorePkg捆绑在EFI/OC/Drivers下
+    * 注：OpenDuet用户（即没有UEFI）将有这个驱动程序内置，不需要它
+  * OS X 10.10，Yosemite及更新版本不需要
 
-These files will go in your Drivers folder in your EFI
+这些文件将在你的EFI驱动文件夹
 
-::: details 32-Bit specifics
+::: details 32位的细节
 
-For those with 32-Bit CPUs, you'll want to grab these drivers as well
+对于那些使用32位CPU的设备，您也需要获取这些驱动程序
 
 * [HfsPlus32](https://github.com/acidanthera/OcBinaryData/blob/master/Drivers/HfsPlus32.efi)
-  * Alternative to HfsPlusLegacy but for 32-bit CPUs, don't mix this with other HFS .efi drivers
+  * HfsPlusLegacy的替代方案，但对于32位cpu，不要将其与其他HFS.efi驱动程序混合使用
 
 :::
 
 ## Kexts
 
-A kext is a **k**ernel **ext**ension, you can think of this as a driver for macOS, these files will go into the Kexts folder in your EFI.
+kext是内核扩展（**k**ernel **ext**ension）的简称，你可以把它看成macOS的驱动，这些文件将进入EFI中的Kexts文件夹。
 
-* **Windows and Linux note**: Kexts will look like normal folders in your OS, **double check** that the folder you are installing has a .kext extension visible(and do not add one manually if it's missing).
-  * If any kext also includes a `.dSYM` file, you can simply delete it. They're only for debugging purposes.
-* **Location Note**: These files **must** be placed under `EFI/OC/Kexts/`.
+* **Windows和Linux注意**：kext将看起来像你的操作系统中的普通文件夹，**仔细检查**，你正在安装的文件夹有一个可见的。kext扩展名(如果它丢失，不要手动添加一个)。
+  * 如果kext还包含`.dSYM`文件，您可以简单地删除它。它们仅用于调试目的。
+* **位置说明**：这些文件**必须**放在`EFI/OC/kext/`下。
 
-Most kexts listed below can be found **pre-compiled** in the [build repo](http://dortania.github.io/builds/). Kexts here are compiled each time there's a new commit.
+下面列出的大多数文本都可以在[build repo](http://dortania.github.io/builds/)中找到**预编译**版本。这里的kext在每次有新的提交时进行编译。
 
-### Must haves
+### 必需
 
-::: tip Required Kexts
+::: tip 必需的kext
 
-Without the below 2, no system is bootable:
+没有下面的2个，系统是无法启动的：
 
-* [Lilu](https://github.com/acidanthera/Lilu/releases)(<span style="color:red">Required</span>)
-  * A kext to patch many processes, required for AppleALC, WhateverGreen, VirtualSMC and many other kexts. Without Lilu, they will not work.
-  * Note that while Lilu supports as early as Mac OS X 10.4, many plugins only work on newer versions.
-* [VirtualSMC](https://github.com/acidanthera/VirtualSMC/releases)(<span style="color:red">Required</span>)
-  * Emulates the SMC chip found on real macs, without this macOS will not boot
-  * Requires Mac OS X 10.4 or newer
+* [Lilu](https://github.com/acidanthera/Lilu/releases)(<span style="color:red">必需</span>)
+  * 一个ext来修补许多进程，AppleALC, WhateverGreen, VirtualSMC和许多其他的kext需要。没有Lilu，他们就不会工作。
+  * 请注意，虽然Lilu最低支持Mac OS X 10.4，但许多插件只适用于较新的版本。
+* [VirtualSMC](https://github.com/acidanthera/VirtualSMC/releases)(<span style="color:red">必需</span>)
+  * 模拟在真正的Mac上发现的SMC芯片，没有这个macOS将无法启动
+  * 需要Mac OS X 10.4或更新版本
 
 :::
 
-### VirtualSMC Plugins
+### VirtualSMC插件
 
-The below plugins are not required to boot, and merely add extra functionality to the system like hardware monitoring. Unless otherwise specified, these plugins come with VirtualSMC
+下面的插件不需要引导，它们只是为系统添加了额外的功能，比如硬件监控。除非另有说明，否则这些插件都是VirtualSMC附带的
 
 ::: tip
 
-While VirtualSMC supports 10.4, plugins may require newer versions.
+虽然VirtualSMC支持10.4，但插件可能需要更新的版本。
 
 :::
 
 * SMCProcessor.kext
-  * Used for monitoring Intel CPU temperature
-  * Not for AMD CPU based systems
-  * Requires Mac OS X 10.7 or newer
+  * 用于监控Intel CPU温度
+  * 不适合基于AMD CPU的系统
+  * 需要Mac OS X 10.7或更新版本
 * [SMCAMDProcessor](https://github.com/trulyspinach/SMCAMDProcessor)
-  * Used for monitoring CPU temperature on AMD Zen-based systems
-  * **Under active development, potentially unstable**
-  * Requires AMDRyzenCPUPowerManagement (see [AMD CPU Specific Kexts](ktext.md#amd-cpu-specific-kexts))
-  * Requires macOS 10.13 or newer
+  * 用于监控AMD Zen系统的CPU温度
+  * **积极发展下，潜在不稳定**
+  * 需要AMDRyzenCPUPowerManagement（参见[AMD CPU特定的kext](ktext.md#amd-cpu特定的kext)）
+  * 需要macOS 10.13或更新版本
 * [SMCRadeonGPU](https://github.com/aluveitie/RadeonSensor)
-  * Used for monitoring GPU temperature on AMD GPU systems
-  * Requires RadeonSensor from the same repository
-  * Requires macOS 11 or newer
+  * 用于监控AMD GPU系统上的GPU温度
+  * 需要来自同一存储库的RadeonSensor
+  * 需要macOS 11或更新版本
 * SMCSuperIO.kext
-  * Used for monitoring fan speed
-  * Not for AMD CPU based systems
-  * Requires Mac OS X 10.6 or newer
+  * 用于监控风扇转速
+  * 不适合基于AMD CPU的系统
+  * 需要Mac OS X 10.6或更新版本
 * SMCLightSensor.kext
-  * Used for the ambient light sensor on laptops
-  * **Do not use if you don't have an ambient light sensor (ie. desktops), can cause issues otherwise**
-  * Requires Mac OS X 10.6 or newer
+  * 用于笔记本电脑的环境光传感器
+  * **如果你没有环境光传感器（即台式机），不要使用。否则会导致问题**
+  * 需要Mac OS X 10.6或更新版本
 * SMCBatteryManager.kext
-  * Used for measuring battery readouts on laptops
-  * **Do not use on desktops**
-  * Requires Mac OS X 10.4 or newer
+  * 用于测量笔记本电脑上的电池读数
+  * **不在台式机上使用**
+  * 需要Mac OS X 10.4或更新版本
 * SMCDellSensors.kext
-  * Allows for finer monitoring and control of the fans on Dell machines supporting System Management Mode (SMM)
-  * **Do not use if you do not have a supported Dell machine**, mainly Dell laptops can benefit from this kext
-  * Requires Mac OS X 10.7 or newer
+  * 允许对支持系统管理模式(SMM)的戴尔机器上的风扇进行更精细的监控和控制
+  * **如果您没有受支持的戴尔计算机，请不要使用**，主要是戴尔笔记本电脑可以从中受益
+  * 需要Mac OS X 10.7或更新版本
 
-### Graphics
+### 图形
 
-* [WhateverGreen](https://github.com/acidanthera/WhateverGreen/releases)(<span style="color:red">Required</span>)
-  * Used for graphics patching, DRM fixes, board ID checks, framebuffer fixes, etc; all GPUs benefit from this kext.
-  * Note the SSDT-PNLF.dsl file included is only required for laptops and AIOs, see [Getting started with ACPI](https://dortania.github.io/Getting-Started-With-ACPI/) for more info
-  * Requires Mac OS X 10.6 or newer
+* [WhateverGreen](https://github.com/acidanthera/WhateverGreen/releases)(<span style="color:red">必需</span>)
+  * 用于图形修补，DRM修复，板ID检查，帧缓冲区修复等。所有的GPU都能从中受益。
+  * 注意SSDT-PNLF.dsl文件仅适用于笔记本电脑和AIO，请参阅[ACPI入门](https://xuanxuan1231.github.io/Getting-Started-With-ACPI/)了解更多信息
+  * 需要Mac OS X 10.6或更新版本
 
-### Audio
+### 音频
 
 * [AppleALC](https://github.com/acidanthera/AppleALC/releases)
-  * Used for AppleHDA patching, allowing support for the majority of on-board sound controllers
-  * AppleALCU.kext is a pared down version of AppleALC that only supports digital audio - but you can still use AppleALC.kext on digital audio-only systems
-  * AMD 15h/16h may have issues with AppleALC and Ryzen/Threadripper systems rarely have mic support
-  * Requires OS X 10.4 or newer
+  * 用于AppleHDA补丁，允许支持大多数板载声音控制器
+  * AppleALCU.kext是AppleALC的精简版，只支持数字音频，但你仍然可以在数字音频专用系统上使用AppleALC
+  * AMD 15h/16h可能与AppleALC和Ryzen/Threadripper系统有问题，很少有麦克风支持
+  * 需要OS X 10.4或更新版本
   
-::: details Legacy Audio Kext
+::: details 传统音频kext
 
-For those who plan to boot 10.7 and older may want to opt for these kexts instead:
+对于那些计划启动10.7或更老版本的人来说，可能会选择以下Kext：
 
 * [VoodooHDA](https://sourceforge.net/projects/voodoohda/)
-  * Requires OS X 10.6 or newer
+  * 要求OS X 10.6或更新版本
   
 * [VoodooHDA-FAT](https://github.com/khronokernel/Legacy-Kexts/blob/master/FAT/Zip/VoodooHDA.kext.zip)
-  * Similar to the above, however supports 32 and 64-Bit kernels so perfect for OS X 10.4-5 booting and 32-Bit CPUs
+  * 与上面类似，但是支持32位和64位内核，因此非常适合OS X 10.4-5引导和32位CPU
 
 :::
 
-### Ethernet
+### 以太网
 
-Here we're going to assume you know what ethernet card your system has, reminder that product spec pages will most likely list the type of network card.
+这里我们假设您知道您的系统有什么以太网卡，提醒您，产品规格页面很可能会列出网卡的类型。
 
 * [IntelMausi](https://github.com/acidanthera/IntelMausi/releases)
-  * Required for the majority of Intel NICs, chipsets that are based off of I211 will need the SmallTreeIntel82576 kext
-  * Intel's 82578, 82579, I217, I218 and I219 NICs are officially supported
-  * Requires OS X 10.9 or newer, 10.6-10.8 users can use IntelSnowMausi instead for older OSes
+  * 对于大多数Intel网卡来说，基于I211的芯片组需要SmallTreeIntel82576.kext
+  * 官方支持Intel的82578、82579、I217、I218和I219网卡
+  * 要求OS X 10.9或更新版本，10.6-10.8用户可以使用IntelSnowMausi代替旧的操作系统
 * [AppleIGB](https://github.com/donatengit/AppleIGB/releases)
-  * Required for I211 NICs running on macOS Monterey and above
-  * Might have instability issues on some NICs, recommended to stay on Big Sur and use SmallTree
-  * Required for most AMD boards running Intel NICs
-  * Requires macOS 12 and above
+  * 在macOS Monterey及以上版本上运行的I211网卡必需
+  * 可能在一些网卡上有不稳定的问题，建议留在Big Sur上并使用SmallTree
+  * 大多数运行Intel网卡的AMD主板都需要
+  * 需要macOS 12及以上版本
 * [SmallTreeIntel82576](https://github.com/khronokernel/SmallTree-I211-AT-patch/releases)
-  * Required for I211 NICs running on macOS versions up to Big Sur, based off of the SmallTree kext but patched to support I211 (doesn't work on macOS 12 [Monterey](./extras/monterey.md#ethernet) or above)
-  * Required for most AMD boards running Intel NICs
-  * Requires OS X 10.9-12(v1.0.6), macOS 10.13-14(v1.2.5), macOS 10.15+(v1.3.0)
+  * 需要I211网卡运行在macOS版本到Big Sur上，基于SmallTree ext，但打了补丁以支持I211（在macOS 12 [Monterey](./extras/monterey.md#以太网)或更高版本上不起作用）
+  * 大多数运行Intel网卡的AMD主板都需要
+  * 要求OS X 10.9-12(v1.0.6)，macOS 10.13-14(v1.2.5)，macOS 10.15+(v1.3.0)
 * [AtherosE2200Ethernet](https://github.com/Mieze/AtherosE2200Ethernet/releases)
-  * Required for Atheros and Killer NICs
-  * Requires OS X 10.8 or newer
-  * Note: Atheros Killer E2500 models are actually Realtek based, for these systems please use [RealtekRTL8111](https://github.com/Mieze/RTL8111_driver_for_OS_X/releases) instead
+  * Atheros和Killer网卡所需
+  * 要求OS X 10.8或更新版本
+  * 注意:Atheros Killer E2500型号实际上是基于Realtek的，对于这些系统，请使用[RealtekRTL8111](https://github.com/Mieze/RTL8111_driver_for_OS_X/releases)代替
 * [RealtekRTL8111](https://github.com/Mieze/RTL8111_driver_for_OS_X/releases)
-  * For Realtek's Gigabit Ethernet
-  * Requires OS X 10.8 and up for versions v2.2.0 and below, macOS 10.12 and up for version v2.2.2, macOS 10.14 and up for versions v2.3.0 and up
-  * **NOTE:** Sometimes the latest version of the kext might not work properly with your Ethernet. If you see this issue, try older versions.
+  * 为Realtek的千兆以太网
+  * v2.2.0及以下版本需要OS X 10.8及以上版本，v2.2.2版本需要macOS 10.12及以上版本，v2.3.0及以上版本需要macOS 10.14及以上版本
+  *  **注意：** 有时最新版本的ext可能无法与您的以太网正常工作。如果您看到此问题，请尝试旧版本。
 * [LucyRTL8125Ethernet](https://www.insanelymac.com/forum/files/file/1004-lucyrtl8125ethernet/)
-  * For Realtek's 2.5Gb Ethernet
-  * Requires macOS 10.15 or newer
-* For Intel's I225-V NICs, patches are mentioned in the desktop [Comet Lake DeviceProperties](config.plist/comet-lake.md#deviceproperties) section. No kext is required.
-  * Requires macOS 10.15 or newer
-* For Intel's I350 NICs, patches are mentioned in the HEDT [Sandy and Ivy Bridge-E DeviceProperties](config-HEDT/ivy-bridge-e.md#deviceproperties) section. No kext is required.
-  * Requires OS X 10.10 or newer
+  * Realtek的2.5Gb以太网
+  * 需要macOS 10.15或更新版本
+* 对于Intel的I225-V网卡，补丁在台式机[Comet Lake DeviceProperties](config.plist/comet-lake.md#deviceproperties)部分中提到。不需要kext。
+  * 需要macOS 10.15或更新版本
+* 对于Intel的I350网卡，补丁在HEDT [Sandy和Ivy Bridge-E DeviceProperties](config-HEDT/ivy-bridge-e.md#deviceproperties)部分中提到。不需要kext。
+  * 要求OS X 10.10或更新版本
 
-::: details Legacy Ethernet Kexts
+::: details 旧版以太网kext
 
-Relevant for either legacy macOS installs or older PC hardware.
+与旧的macOS安装或旧的PC硬件相关。
 
 * [AppleIntele1000e](https://github.com/chris1111/AppleIntelE1000e/releases)
-  * Mainly relevant for 10/100MBe based Intel Ethernet controllers
-  * Requires 10.6 or newer
+  * 主要与基于10/100MBe的英特尔以太网控制器相关
+  * 需要10.6或更新版本
 * [RealtekRTL8100](https://www.insanelymac.com/forum/files/file/259-realtekrtl8100-binary/)
-  * Mainly relevant for 10/100MBe based Realtek Ethernet controllers
-  * Requires macOS 10.12 or newer with v2.0.0+
+  * 主要与基于10/100MBe的Realtek以太网控制器相关
+  * v2.0.0+需要macOS 10.12或更新版本
 * [BCM5722D](https://github.com/chris1111/BCM5722D/releases)
-  * Mainly relevant for BCM5722 based Broadcom Ethernet controllers
-  * Requires OS X 10.6 or newer
+  * 主要与基于BCM5722的Broadcom以太网控制器相关
+  * 要求OS X 10.6或更新版本
 
 :::
 
-And also keep in mind certain NICs are actually natively supported in macOS:
+还要记住，某些网卡实际上是macOS原生支持的:
 
 ::: details Native Ethernet Controllers
 
-#### Aquantia Series
+#### Aquantia系列
 
 ```md
 # AppleEthernetAquantiaAqtion.kext
@@ -221,9 +221,9 @@ pci1d6a,c0   = Aquantia AQC113
 pci1d6a,4c0  = Aquantia AQC113
 ```
 
-**Note**: Due to some outdated firmware shipped on many Aquantia NICs, you may need to update the firmware in Linux/Windows to ensure it's macOS-compatible.
+**注**：由于许多Aquantia网卡上的一些过时的固件，您可能需要更新Linux/Windows中的固件以确保它与macos兼容。
 
-#### Intel Series
+#### Intel系列
 
 ```md
 # AppleIntel8254XEthernet.kext
@@ -241,7 +241,7 @@ pci8086,10f6 = Intel 82574L
 
 ```
 
-#### Broadcom Series
+#### Broadcom系列
 
 ```md
 # AppleBCM5701Ethernet.kext
@@ -256,61 +256,61 @@ pci14e4,1686 = Broadcom BCM57766
 
 ### USB
 
-* USBToolBox ([tool](https://github.com/USBToolBox/tool) and [kext](https://github.com/USBToolBox/kext))
-  * USB mapping tool for Windows and macOS.
-  * It is highly advisable to map your USB ports before you install macOS to avoid any port limit issues
-  * Features
-    * Supports mapping from Windows and macOS (Linux support in progress)
-    * Can build a map using either the USBToolBox kext or native Apple kexts (AppleUSBHostMergeProperties)
-    * Supports multiple ways of matching
-    * Supports companion ports (on Windows)
+* USBToolBox （[tool](https://github.com/USBToolBox/tool)和[k0ext](https://github.com/USBToolBox/kext)）
+  * 对于Windows和macOS的USB映射工具。
+  * 建议您在安装macOS之前映射USB端口，以避免任何端口限制问题
+  * 特性
+    * 支持从Windows和macOS映射（Linux支持正在进行中）
+    * 可以使用USBToolBox kext或原生Apple kext（AppleUSBHostMergeProperties）构建映射
+    * 支持多种匹配方式
+    * 支持配套端口（在Windows上）
 
 * [XHCI-unsupported](https://github.com/RehabMan/OS-X-USB-Inject-All)
-  * Needed for non-native USB controllers
-  * AMD CPU based systems don't need this
-  * Common chipsets needing this:
+  * 非原生USB控制器所需
+  * 基于AMD CPU的系统不需要这个
+  * 需要此功能的常见芯片组：
     * H370
     * B360
     * H310
-    * Z390 (not needed on Mojave and newer)
+    * Z390（Mojave和更新版本不需要）
     * X79
     * X99
-    * ASRock Intel boards (B460/Z490+ boards do not need it however)
+    * ASRock Intel主板（B460/Z490+不需要）
 
-### WiFi and Bluetooth
+### WiFi和蓝牙
 
-#### Non-Native Bluetooth Cards
+#### 非原生蓝牙卡
 
 * [BlueToolFixup](https://github.com/acidanthera/BrcmPatchRAM/releases)
-  * Patches the macOS 12+ Bluetooth stack to support third-party cards
-  * Needed for all non-native (non-Apple Broadcom, Intel, etc) Bluetooth cards
-  * Included in the [BrcmPatchRAM](#broadcom) zip
-  * **Do not use on macOS 11 and earlier**
+  * 修复macOS 12+蓝牙栈，支持第三方卡
+  * 所有非原生（非Apple的Broadcom，Intel等）蓝牙卡都需要
+  * 包括在[BrcmPatchRAM](#broadcom)压缩
+  * **不要在macOS 11或更早的版本上使用**
 
 #### Intel
 
 * [AirportItlwm](https://github.com/OpenIntelWireless/itlwm/releases)
-  * Adds support for a large variety of Intel wireless cards and works natively in recovery thanks to IO80211Family integration
-  * Requires macOS 10.13 or newer and requires Apple's Secure Boot to function correctly
+  * 增加了对各种英特尔无线卡的支持，并由于IO80211Family集成而在恢复模式中原生工作
+  * 需要macOS 10.13或更新版本，并需要苹果的安全引导才能正常工作
 * [Itlwm](https://github.com/OpenIntelWireless/itlwm/releases)
-  * Alternative to AirportItlwm for systems where Apple's Secure Boot cannot be enabled
-  * Requires [Heliport](https://github.com/OpenIntelWireless/HeliPort/releases)
-  * It will be treated as an Ethernet card, and you will have to connect to Wi-Fi via Heliport
-  * **Does not work in macOS recovery**
+  * 对于无法启用Apple安全启动的系统，AirportItlwm的替代方案
+  * 需要[Heliport](https://github.com/OpenIntelWireless/HeliPort/releases)
+  * 它将被视为以太网卡，你必须通过Heliport连接Wi-Fi
+  * **在macOS恢复模式中不工作**
 * [IntelBluetoothFirmware](https://github.com/OpenIntelWireless/IntelBluetoothFirmware/releases)
-  * Adds Bluetooth support to macOS when paired with an Intel wireless card
-  * Use IntelBTPatcher (included) in addition to patch bugs in macOS
-  * Requires macOS 10.13 or newer
-  * On macOS 10.13 through 11, you also need IntelBluetoothInjector (included)
+  * 当与英特尔无线网卡配对时，为macOS增加蓝牙支持
+  * 除了在macOS中修补错误外，还使用IntelBTPatcher（包含）
+  * 需要macOS 10.13或更新版本
+  * 在macOS 10.13到11上，您还需要IntelBluetoothInjector（包含）
 
-::: details More info on enabling AirportItlwm
+::: details 关于启用AirportItlwm的更多信息
 
-To enable AirportItlwm support with OpenCore, you'll need to either:
+要在OpenCore中启用AirportItlwm支持，您需要:
 
-* Enable `Misc -> Security -> SecureBootModel` by either setting it as `Default` or some other valid value
-  * This is discussed both later on in this guide and in the post-install guide: [Apple Secure Boot](https://dortania.github.io/OpenCore-Post-Install/universal/security/applesecureboot.html)
-* If you cannot enable SecureBootModel, you can still force inject IO80211Family (**highly discouraged**)
-  * Set the following under `Kernel -> Force` in your config.plist (discussed later in this guide):
+* 将它设置为`Default`或其他可用值以启用`Misc -> Security -> SecureBootModel`
+  * 这将在本指南的后面部分和安装后指南中讨论：[Apple安全启动](https://xuanxuan1231.github.io/OpenCore-Post-Install/universal/security/applesecureboot.html)
+* 如果你不能启用SecureBootModel，你仍然可以强制注入IO80211Family（**强烈反对**）
+  * 在config.plist中的`Kernel -> Force`下设置以下内容。（在本指南后面讨论）：
   
 ![](./images/ktext-md/force-io80211.png)
 
@@ -319,209 +319,208 @@ To enable AirportItlwm support with OpenCore, you'll need to either:
 #### Broadcom
 
 * [AirportBrcmFixup](https://github.com/acidanthera/AirportBrcmFixup/releases)
-  * Used for patching non-Apple/non-Fenvi Broadcom cards, **will not work on Intel, Killer, Realtek, etc**
-  * Requires OS X 10.10 or newer
-  * For Big Sur see [Big Sur Known Issues](./extras/big-sur#known-issues) for extra steps regarding AirPortBrcm4360 drivers.
+  * 用于修补非Apple/非Fenvi的Broadcom卡，**将不适用于Intel，Killer和Realtek等**
+  * 要求OS X 10.10或更新版本
+  * 关于Big Sur，请参阅[Bis Sur已知问题](./extras/big-sur#已知问题)了解有关AirPortBrcm4360驱动程序的额外步骤。
 * [BrcmPatchRAM](https://github.com/acidanthera/BrcmPatchRAM/releases)
-  * Used for uploading firmware on Broadcom Bluetooth chipset, required for all non-Apple/non-Fenvi Airport cards.
-  * To be paired with BrcmFirmwareData.kext
-    * BrcmPatchRAM3 for 10.15+ (must be paired with BrcmBluetoothInjector)
+  * 用于在Broadcom蓝牙芯片组上上传固件，所有非Apple/非Fenvi卡都需要。
+  * 与BrcmFirmwareData.kext配对
+    * BrcmPatchRAM3 for 10.15+（必须与BrcmBluetoothInjector配对）
     * BrcmPatchRAM2 for 10.11-10.14
     * BrcmPatchRAM for 10.8-10.10
-  * On macOS 10.11 through macOS 11, you also need BrcmBluetoothInjector (included)
+  * 在macOS 10.11到macOS 11上，您还需要BrcmBluetoothInjector（包含）
 
-::: details BrcmPatchRAM Load order
+::: details BrcmPatchRAM加载顺序
 
-The order in `Kernel -> Add` should be:
+在`Kernel -> Add`中的顺序应该是：
 
-1. BrcmBluetoothInjector (if needed)
+1. BrcmBluetoothInjector（如果需要）
 2. BrcmFirmwareData
-3. BrcmPatchRAM3 (or BrcmPatchRAM2/BrcmPatchRAM)
+3. BrcmPatchRAM3（或BrcmPatchRAM2/BrcmPatchRAM）
 
-BlueToolFixup can be anywhere after Lilu.
+BlueToolFixup可以在Lilu之后的任何地方。
 
-However ProperTree will handle this for you, so you need not concern yourself
+但是ProperTree将为您处理这个问题，因此您不必自己担心
 
 :::
 
-### AMD CPU Specific kexts
+### AMD CPU特定的kext
 
 * [XLNCUSBFIX](https://cdn.discordapp.com/attachments/566705665616117760/566728101292408877/XLNCUSBFix.kext.zip)
-  * USB fix for AMD FX systems, not recommended for Ryzen
-  * Requires macOS 10.13 or newer
+  * USB修复AMD FX系统，Ryzen不建议
+  * 需要macOS 10.13或更新版本
 * [VoodooHDA](https://sourceforge.net/projects/voodoohda/)
-  * Audio for FX systems and front panel Mic+Audio support for Ryzen system, do not mix with AppleALC. Audio quality is noticeably worse than AppleALC on Zen CPUs
-  * Requires OS X 10.6 or newer
-  * Using this kext on macOS 11.3 and above is not recommended as you need to modify the macOS filesystem and disable SIP
+  * FX系统的音频和Ryzen系统的前面板Mic+音频支持，不要与AppleALC混合。音频质量明显比Zen cpu上的AppleALC差
+  * 要求OS X 10.6或更新版本
+  * 不建议在macOS 11.3及以上版本上使用此ext，因为您需要修改macOS文件系统并禁用SIP
 * [AMDRyzenCPUPowerManagement](https://github.com/trulyspinach/SMCAMDProcessor)
-  * CPU power management for Ryzen systems
-  * **Under active development, potentially unstable**
-  * Requires macOS 10.13 or newer
+  * Ryzen系统的CPU电源管理
+  * **积极发展下，潜在不稳定**
+  * 需要macOS 10.13或更新版本
 
-### Extras
+### 附加
 
 * [AppleMCEReporterDisabler](https://github.com/acidanthera/bugtracker/files/3703498/AppleMCEReporterDisabler.kext.zip)
-  * Required on macOS 12.3 and later on AMD systems, and on macOS 10.15 and later on dual-socket Intel systems.
-  * Affected SMBIOSes:
+  * 需要在macOS 12.3及更高版本的AMD系统上，以及macOS 10.15及更高版本的Intel双插槽系统上。
+  * 影响的SMBIOS：
     * MacPro6,1
     * MacPro7,1
     * iMacPro1,1
 * [CpuTscSync](https://github.com/lvs1974/CpuTscSync/releases)
-  * Needed for syncing TSC on some of Intel's HEDT and server motherboards, without this macOS may be extremely slow or even unbootable.
-  * **Does not work on AMD CPUs**
-  * Requires OS X 10.8 or newer
+  * 需要在一些英特尔的HEDT和服务器主板上同步TSC，没有这个macOS可能会非常慢甚至无法启动。
+  * **不能在AMD CPU上工作**
+  * 要求OS X 10.8或更新版本
 * [NVMeFix](https://github.com/acidanthera/NVMeFix/releases)
-  * Used for fixing power management and initialization on non-Apple NVMe
-  * Requires macOS 10.14 or newer
+  * 用于修复非Apple NVMe的电源管理和初始化
+  * 需要macOS 10.14或更新版本
 * [SATA-Unsupported](https://github.com/khronokernel/Legacy-Kexts/blob/master/Injectors/Zip/SATA-unsupported.kext.zip)
-  * Adds support for a large variety of SATA controllers, mainly relevant for laptops which have issues seeing the SATA drive in macOS. We recommend testing without this first.
-  * Big Sur+ Note: [CtlnaAHCIPort](https://github.com/dortania/OpenCore-Install-Guide/blob/master/extra-files/CtlnaAHCIPort.kext.zip) will need to be used instead due to numerous controllers being dropped from the binary itself
-    * Catalina and older need not concern
+  * 增加了对多种SATA控制器的支持，主要适用于在macOS中无法看到SATA驱动器的笔记本电脑。我们建议先不使用这个进行测试。
+  * Big Sur+注意：[CtlnaAHCIPort](extra-files/CtlnaAHCIPort.kext.zip)将需要使用，因为大量的控制器被从二进制文件本身删除
+    * Catalina和更老的系统不必担心
 * [CPUTopologyRebuild](https://github.com/b00t0x/CpuTopologyRebuild)
-  * An experimental Lilu plugin that optimizes Alder Lake's heterogeneous core configuration. **Only for Alder Lake CPUs**
+  * 一个实验性的Lilu插件，优化了Alder Lake的异构核心配置。**仅适用于Alder Lake CPU**
 * [RestrictEvents](https://github.com/acidanthera/RestrictEvents)
-  * Patch various functions of macOS, see [the README](https://github.com/acidanthera/RestrictEvents#boot-arguments) for more info
+  * 修补macOS的各种功能，参见[README](https://github.com/acidanthera/RestrictEvents#boot-arguments)了解更多信息
 * [EmeraldSDHC](https://github.com/acidanthera/EmeraldSDHC)
-  * macOS kernel extension for eMMC support. Currently only supports eMMC/MMC cards at up to HS200 speeds.  This driver is currently a work in progress and may experience poor performance or be nonfunctional on some devices. SD cards are currently not supported at this time.
+  * 支持eMMC的macOS内核扩展。目前只支持最高HS200速度的eMMC/MMC卡。此驱动程序目前正在进行中，在某些设备上可能会遇到性能不佳或不可用的情况。目前不支持SD卡。
+::: details 传统SATA kext
 
-::: details Legacy SATA Kexts
-
-* [AppleIntelPIIXATA.kext](https://github.com/dortania/OpenCore-Legacy-Patcher/blob/d20d9975c144728da7ae2543d65422f53dabaa2d/payloads/Kexts/Misc/AppleIntelPIIXATA-v1.0.0.zip)
-  * Legacy IDE and ATA kext for older Core 2 Duo/Quad and Pentium 4 systems. Needed for macOS 11 (Big Sur) and newer as this kext was dropped in macOS 10.15 (Catalina)
+* [AppleIntelPIIXATA.kext](https://github.com/xuanxuan1231/OpenCore-Legacy-Patcher/blob/d20d9975c144728da7ae2543d65422f53dabaa2d/payloads/Kexts/Misc/AppleIntelPIIXATA-v1.0.0.zip)
+  * 旧的核心2双核/四核和奔腾4系统的传统IDE和ATA ext。macOS 11（Big Sur）和更新版本需要，因为这个kext在macOS 10.15（Catalina）中被删除了。
 * [AHCIPortInjector](https://github.com/khronokernel/Legacy-Kexts/blob/master/Injectors/Zip/AHCIPortInjector.kext.zip)
-  * Legacy SATA/AHCI injector, mainly relevant for older machines of the Penryn era
+  * 传统的SATA/AHCI注入器，主要适用于Penryn前的旧机器
 * [ATAPortInjector](https://github.com/khronokernel/Legacy-Kexts/blob/master/Injectors/Zip/ATAPortInjector.kext.zip)
-  * Legacy ATA injector, mainly relevant for IDE and ATA devices (ie. when no AHCI option is present in the BIOS)
-  * Is dependent on AppleIntelPIIXATA.kext, which needs to be included when using macOS 11 (Big Sur) and newer
+  * 旧版的ATA注入器，主要与IDE和ATA设备相关(即。当BIOS中没有AHCI选项时)
+  * 依赖于AppleIntelPIIXATA.kext，使用macOS 11（Big Sur）及更新版本时需要注入
   
 :::
 
-### Laptop Input
+### 笔记本电脑输入
 
-To figure out what kind of keyboard and trackpad you have, check Device Manager in Windows or `dmesg | grep -i input` in Linux
+要弄清楚你有什么样的键盘和触控板，请查看Windows中的设备管理器或Linux中的`dmesg | grep -i input`
 
-::: warning
+::: warning 警告
 
-Most laptop keyboards are PS2! You will want to grab VoodooPS2 even if you have an I2C, USB, or SMBus trackpad.
+大多数笔记本电脑的键盘都是PS2！即使您有I2C, USB或SMBus触控板，您也会想要抓取VoodooPS2。
 
 :::
 
-#### PS2 Keyboards/Trackpads
+#### PS2键盘和触摸板
 
 * [VoodooPS2](https://github.com/acidanthera/VoodooPS2/releases)
-  * Works with various PS2 keyboards, mice, and trackpads
-  * Requires macOS 10.11 or newer for MT2 (Magic Trackpad 2) functions
+  * 适用于各种PS2键盘，鼠标和触控板
+  * MT2（Magic Trackpad 2）功能需要macOS 10.11或更新版本
 * [RehabMan's VoodooPS2](https://bitbucket.org/RehabMan/os-x-voodoo-ps2-controller/downloads/)
-  * For older systems with PS2 keyboards, mice, and trackpads, or when you don't want to use VoodooInput
-  * Supports macOS 10.6+
+  * 对于带有PS2键盘，鼠标和触控板的旧系统，或者当您不想使用VoodooInput时
+  * 支持macOS 10.6+
 
-#### SMBus Trackpads
+#### SMBus触摸板
 
 * [VoodooRMI](https://github.com/VoodooSMBus/VoodooRMI/releases)
-  * For systems with Synaptics SMBus trackpads
-  * Requires macOS 10.11 or newer for MT2 functions
-  * Depends on Acidanthera's VoodooPS2
+  * 适用于带有Synaptics SMBus触控板的系统
+  * MT2功能需要macOS 10.11或更新版本
+  * 取决于Acidanthera的VoodooPS2
 * [VoodooSMBus](https://github.com/VoodooSMBus/VoodooSMBus/releases)
-  * For systems with ELAN SMBus Trackpads
-  * Supports macOS 10.14 or newer currently
+  * 适用于带有ELAN SMBus触控板的系统
+  * 目前支持macOS 10.14或更新版本
 
-#### I2C/USB HID Devices
+#### I2C/USB HID设备
 
 * [VoodooI2C](https://github.com/VoodooI2C/VoodooI2C/releases)
-  * Supports macOS 10.11+
-  * Attaches to I2C controllers to allow plugins to talk to I2C trackpads
-  * USB devices using the below plugins still need VoodooI2C
-  * Must be paired with one or more plugins shown below:
+  * 支持macOS 10.11+
+  * 连接到I2C控制器，允许插件与I2C触控板交互
+  * 使用以下插件的USB设备仍然需要VoodooI2C
+  * 必须与一个或多个插件配对如下所示：
 
-::: tip VoodooI2C Plugins
+::: tip VoodooI2C插件
 
-| Connection type | Plugin | Notes |
+| 连接类型 | 插件 | 注释 |
 | :--- | :--- | :--- |
-| Multitouch HID | VoodooI2CHID | Can be used with I2C/USB Touchscreens and Trackpads |
-| ELAN Proprietary | VoodooI2CElan | ELAN1200+ require VoodooI2CHID instead |
-| FTE1001 touchpad | VoodooI2CFTE | |
-| Atmel Multitouch Protocol | VoodooI2CAtmelMXT | |
-| Synaptics HID | [VoodooRMI](https://github.com/VoodooSMBus/VoodooRMI/releases) | I2C Synaptic Trackpads (Requires VoodooI2C ONLY for I2C mode) |
-| Alps HID | [AlpsHID](https://github.com/blankmac/AlpsHID/releases) | Can be used with USB or I2C Alps trackpads. Mostly seen on Dell laptops and some HP EliteBook models |
+| 多点触控HID | VoodooI2CHID | 可以与I2C/USB触摸屏和触控板一起使用 |
+| ELAN专有 | VoodooI2CElan | ELAN1200+需要VoodooI2CHID代替 |
+| FTE1001触摸板 | VoodooI2CFTE | |
+| Atmel多点触控协议 | VoodooI2CAtmelMXT | |
+| Synaptics HID | [VoodooRMI](https://github.com/VoodooSMBus/VoodooRMI/releases) | I2C Synaptic触控板（需要VoodooI2C仅用于I2C模式） |
+| Alps HID | [AlpsHID](https://github.com/blankmac/AlpsHID/releases) | 可与USB或I2C Alps触控板一起使用。主要出现在戴尔笔记本电脑和一些惠普EliteBook型号上 |
 
 :::
 
-#### Misc
+#### 杂项
 
 * [ECEnabler](https://github.com/1Revenger1/ECEnabler/releases)
-  * Fixes reading battery status on many devices (Allows reading EC fields over 8 bits long)
-  * Supports OS X 10.7 and above (not needed on 10.4 - 10.6)
+  * 修复了在许多设备上读取电池状态（允许读取超过8位长的EC字段）
+  * 支持OS X 10.7及以上版本（10.4 - 10.6不需要）
 * [BrightnessKeys](https://github.com/acidanthera/BrightnessKeys/releases)
-  * Fixes brightness keys automatically
+  * 自动修复亮度键
 
-Please refer to [Kexts.md](https://github.com/acidanthera/OpenCorePkg/blob/master/Docs/Kexts.md) for a full list of supported kexts
+请参考[kexts.md](https://github.com/acidanthera/OpenCorePkg/blob/master/Docs/Kexts.md)（或OpenCore中的`Docs\Kexts.md`获取支持的完整kext列表
 
 ## SSDTs
 
-So you see all those SSDTs in the AcpiSamples folder and wonder whether you need any of them. For us, we will be going over what SSDTs you need in **your specific ACPI section of the config.plist**, as the SSDTs you need are platform specific. With some even system specific where they need to be configured and you can easily get lost if I give you a list of SSDTs to choose from now.
+你在AcpiSamples文件夹中看到所有的SSDT，想知道你是否需要它们。对于我们来说，我们将讨论**在config.plist的特定ACPI部分中需要哪些SSDT**，因为所需的SSDT是特定于平台的。有一些系统特定的地方需要配置，如果我现在给你一个SSDT列表供你选择，你很容易迷路。
 
-[Getting started with ACPI](https://dortania.github.io/Getting-Started-With-ACPI/) has an extended section on SSDTs including compiling them on different platforms.
+[ACPI入门](https://xuanxuan1231.github.io/Getting-Started-With-ACPI/)有一个关于SSDT的扩展部分，包括在不同平台上编译它们。
 
-A quick TL;DR of needed SSDTs(This is source code, you will have to compile them into a .aml file):
+一个所需SSDT的快速TL;DR（这是源代码，你必须将它们编译成一个.aml文件）：
 
-### Desktop
+### 台式机
 
-| Platforms | **CPU** | **EC** | **AWAC** | **NVRAM** | **USB** |
+| 平台 | **CPU** | **EC** | **AWAC** | **NVRAM** | **USB** |
 | :-------: | :-----: | :----: | :------: | :-------: | :-----: |
-| Penryn | N/A | [SSDT-EC](https://dortania.github.io/Getting-Started-With-ACPI/Universal/ec-fix.html) | N/A | N/A | N/A |
-| Lynnfield and Clarkdale | ^^ | ^^ | ^^ | ^^ | ^^ |
-| SandyBridge | [CPU-PM](https://dortania.github.io/OpenCore-Post-Install/universal/pm.html#sandy-and-ivy-bridge-power-management) (Run in Post-Install) | ^^ | ^^ | ^^ | ^^ |
+| Penryn | N/A | [SSDT-EC](https://xuanxuan1231.github.io/Getting-Started-With-ACPI/Universal/ec-fix.html) | N/A | N/A | N/A |
+| Lynnfield和Clarkdale | ^^ | ^^ | ^^ | ^^ | ^^ |
+| Sandy Bridge | [CPU-PM](https://xuanxuan1231.github.io/OpenCore-Post-Install/universal/pm.html#sandy-and-ivy-bridge-power-management)（安装后运行） | ^^ | ^^ | ^^ | ^^ |
 | Ivy Bridge | ^^ | ^^ | ^^ | ^^ | ^^ |
-| Haswell | [SSDT-PLUG](https://dortania.github.io/Getting-Started-With-ACPI/Universal/plug.html) | ^^ | ^^ | ^^ | ^^ |
+| Haswell | [SSDT-PLUG](https://xuanxuan1231.github.io/Getting-Started-With-ACPI/Universal/plug.html) | ^^ | ^^ | ^^ | ^^ |
 | Broadwell | ^^ | ^^ | ^^ | ^^ | ^^ |
-| Skylake | ^^ | [SSDT-EC-USBX](https://dortania.github.io/Getting-Started-With-ACPI/Universal/ec-fix.html) | ^^ | ^^ | ^^ |
+| Skylake | ^^ | [SSDT-EC-USBX](https://xuanxuan1231.github.io/Getting-Started-With-ACPI/Universal/ec-fix.html) | ^^ | ^^ | ^^ |
 | Kaby Lake | ^^ | ^^ | ^^ | ^^ | ^^ |
-| Coffee Lake | ^^ | ^^ | [SSDT-AWAC](https://dortania.github.io/Getting-Started-With-ACPI/Universal/awac.html) | [SSDT-PMC](https://dortania.github.io/Getting-Started-With-ACPI/Universal/nvram.html) | ^^ |
-| Comet Lake | ^^ | ^^ | ^^ | N/A | [SSDT-RHUB](https://dortania.github.io/Getting-Started-With-ACPI/Universal/rhub.html) |
+| Coffee Lake | ^^ | ^^ | [SSDT-AWAC](https://xuanxuan1231.github.io/Getting-Started-With-ACPI/Universal/awac.html) | [SSDT-PMC](https://xuanxuan1231.github.io/Getting-Started-With-ACPI/Universal/nvram.html) | ^^ |
+| Comet Lake | ^^ | ^^ | ^^ | N/A | [SSDT-RHUB](https://xuanxuan1231.github.io/Getting-Started-With-ACPI/Universal/rhub.html) |
 | AMD (15/16h) | N/A | ^^ | N/A | ^^ | N/A |
-| AMD (17/19h) | [SSDT-CPUR for B550 and A520](https://github.com/dortania/Getting-Started-With-ACPI/blob/master/extra-files/compiled/SSDT-CPUR.aml) | ^^ | ^^ | ^^ | ^^ |
+| AMD (17/19h) | [SSDT-CPUR for B550 and A520](https://github.com/xuanxuan1231/Getting-Started-With-ACPI/blob/master/extra-files/compiled/SSDT-CPUR.aml) | ^^ | ^^ | ^^ | ^^ |
 
-### High End Desktop
+### 高端台式机
 
-| Platforms | **CPU** | **EC** | **RTC** | **PCI** |
+| 平台 | **CPU** | **EC** | **RTC** | **PCI** |
 | :-------: | :-----: | :----: | :-----: | :-----: |
-| Nehalem and Westmere | N/A | [SSDT-EC](https://dortania.github.io/Getting-Started-With-ACPI/Universal/ec-fix.html) | N/A | N/A |
-| Sandy Bridge-E | ^^ | ^^ | ^^ | [SSDT-UNC](https://dortania.github.io/Getting-Started-With-ACPI/Universal/unc0) |
+| Nehalem和Westmere | N/A | [SSDT-EC](https://xuanxuan1231.github.io/Getting-Started-With-ACPI/Universal/ec-fix.html) | N/A | N/A |
+| Sandy Bridge-E | ^^ | ^^ | ^^ | [SSDT-UNC](https://xuanxuan1231.github.io/Getting-Started-With-ACPI/Universal/unc0) |
 | Ivy Bridge-E | ^^ | ^^ | ^^ | ^^ |
-| Haswell-E | [SSDT-PLUG](https://dortania.github.io/Getting-Started-With-ACPI/Universal/plug.html) | [SSDT-EC-USBX](https://dortania.github.io/Getting-Started-With-ACPI/Universal/ec-fix.html) | [SSDT-RTC0-RANGE](https://dortania.github.io/Getting-Started-With-ACPI/Universal/awac.html) | ^^ |
+| Haswell-E | [SSDT-PLUG](https://xuanxuan1231.github.io/Getting-Started-With-ACPI/Universal/plug.html) | [SSDT-EC-USBX](https://xuanxuan1231.github.io/Getting-Started-With-ACPI/Universal/ec-fix.html) | [SSDT-RTC0-RANGE](https://xuanxuan1231.github.io/Getting-Started-With-ACPI/Universal/awac.html) | ^^ |
 | Broadwell-E | ^^ | ^^ | ^^ | ^^ |
 | Skylake-X | ^^ | ^^ | ^^ | N/A |
 
-### Laptop
+### 笔记本
 
-| Platforms | **CPU** | **EC** | **Backlight** | **I2C Trackpad** | **AWAC** | **USB** | **IRQ** |
+| 平台 | **CPU** | **EC** | **Backlight** | **I2C Trackpad** | **AWAC** | **USB** | **IRQ** |
 | :-------: | :-----: | :----: | :-----------: | :--------------: | :------: | :-----: | :-----: |
-| Clarksfield and Arrandale | N/A | [SSDT-EC](https://dortania.github.io/Getting-Started-With-ACPI/Universal/ec-fix.html) | [SSDT-PNLF](https://dortania.github.io/Getting-Started-With-ACPI/Laptops/backlight.html) | N/A | N/A | N/A | [IRQ SSDT](https://dortania.github.io/Getting-Started-With-ACPI/Universal/irq.html) |
-| SandyBridge | [CPU-PM](https://dortania.github.io/OpenCore-Post-Install/universal/pm.html#sandy-and-ivy-bridge-power-management) (Run in Post-Install) | ^^ | ^^ | ^^ | ^^ | ^^ | ^^ |
+| Clarksfield和Arrandale | N/A | [SSDT-EC](https://xuanxuan1231.github.io/Getting-Started-With-ACPI/Universal/ec-fix.html) | [SSDT-PNLF](https://xuanxuan1231.github.io/Getting-Started-With-ACPI/Laptops/backlight.html) | N/A | N/A | N/A | [IRQ SSDT](https://xuanxuan1231.github.io/Getting-Started-With-ACPI/Universal/irq.html) |
+| Sandy Bridge | [CPU-PM](https://xuanxuan1231.github.io/OpenCore-Post-Install/universal/pm.html#sandy-and-ivy-bridge-power-management)（安装后运行） | ^^ | ^^ | ^^ | ^^ | ^^ | ^^ |
 | Ivy Bridge | ^^ | ^^ | ^^ | ^^ | ^^ | ^^ | ^^ |
-| Haswell | [SSDT-PLUG](https://dortania.github.io/Getting-Started-With-ACPI/Universal/plug.html) | ^^ | ^^ | [SSDT-GPI0](https://dortania.github.io/Getting-Started-With-ACPI/Laptops/trackpad.html) | ^^ | ^^ | ^^ |
+| Haswell | [SSDT-PLUG](https://xuanxuan1231.github.io/Getting-Started-With-ACPI/Universal/plug.html) | ^^ | ^^ | [SSDT-GPI0](https://xuanxuan1231.github.io/Getting-Started-With-ACPI/Laptops/trackpad.html) | ^^ | ^^ | ^^ |
 | Broadwell | ^^ | ^^ | ^^ | ^^ | ^^ | ^^ | ^^ |
-| Skylake | ^^ | [SSDT-EC-USBX](https://dortania.github.io/Getting-Started-With-ACPI/Universal/ec-fix.html) | ^^ | ^^ | ^^ | ^^ | N/A |
+| Skylake | ^^ | [SSDT-EC-USBX](https://xuanxuan1231.github.io/Getting-Started-With-ACPI/Universal/ec-fix.html) | ^^ | ^^ | ^^ | ^^ | N/A |
 | Kaby Lake | ^^ | ^^ | ^^ | ^^ | ^^ | ^^ | ^^ |
-| Coffee Lake (8th Gen) and Whiskey Lake | ^^ | ^^ | [SSDT-PNLF](https://dortania.github.io/Getting-Started-With-ACPI/Laptops/backlight.html) | ^^ | [SSDT-AWAC](https://dortania.github.io/Getting-Started-With-ACPI/Universal/awac.html) | ^^ | ^^ |
-| Coffee Lake (9th Gen) | ^^ | ^^ | ^^ | ^^ | ^^ | ^^ | ^^ |
+| Coffee Lake（8th Gen）和Whiskey Lake | ^^ | ^^ | [SSDT-PNLF](https://xuanxuan1231.github.io/Getting-Started-With-ACPI/Laptops/backlight.html) | ^^ | [SSDT-AWAC](https://xuanxuan1231.github.io/Getting-Started-With-ACPI/Universal/awac.html) | ^^ | ^^ |
+| Coffee Lake（9th Gen） | ^^ | ^^ | ^^ | ^^ | ^^ | ^^ | ^^ |
 | Comet Lake | ^^ | ^^ | ^^ | ^^ | ^^ | ^^ | ^^ |
-| Ice Lake | ^^ | ^^ | ^^ | ^^ | ^^ | [SSDT-RHUB](https://dortania.github.io/Getting-Started-With-ACPI/Universal/rhub.html) | ^^ |
+| Ice Lake | ^^ | ^^ | ^^ | ^^ | ^^ | [SSDT-RHUB](https://xuanxuan1231.github.io/Getting-Started-With-ACPI/Universal/rhub.html) | ^^ |
 
-Continuing:
+续表：
 
-| Platforms | **NVRAM** | **IMEI** |
+| 平台 | **NVRAM** | **IMEI** |
 | :-------: | :-------: | :------: |
-| Clarksfield and Arrandale | N/A | N/A |
-| Sandy Bridge | ^^| [SSDT-IMEI](https://dortania.github.io/Getting-Started-With-ACPI/Universal/imei.html) |
+| Clarksfield和Arrandale | N/A | N/A |
+| Sandy Bridge | ^^| [SSDT-IMEI](https://xuanxuan1231.github.io/Getting-Started-With-ACPI/Universal/imei.html) |
 | Ivy Bridge | ^^ | ^^ |
 | Haswell | ^^ | N/A |
 | Broadwell | ^^ | ^^ |
 | Skylake | ^^ | ^^ |
 | Kaby Lake | ^^ | ^^ |
-| Coffee Lake (8th Gen) and Whiskey Lake | ^^ | ^^ |
-| Coffee Lake (9th Gen) | [SSDT-PMC](https://dortania.github.io/Getting-Started-With-ACPI/Universal/nvram.html) | ^^ |
+| Coffee Lake（8th Gen）和Whiskey Lake | ^^ | ^^ |
+| Coffee Lake（9th Gen） | [SSDT-PMC](https://xuanxuan1231.github.io/Getting-Started-With-ACPI/Universal/nvram.html) | ^^ |
 | Comet Lake | N/A | ^^ |
 | Ice Lake | ^^ | ^^ |
 
-# Now with all this done, head to [Getting Started With ACPI](https://dortania.github.io/Getting-Started-With-ACPI/)
+# 现在所有这些都完成了，前往[ACPI入门](https://xuanxuan1231.github.io/Getting-Started-With-ACPI/)
